@@ -11,32 +11,12 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>HomepageServlet</display-name>
-    <servlet-name>HomepageServlet</servlet-name>
-    <servlet-class>com.trms.servlet.HomepageServlet</servlet-class>
+    <display-name>MasterServlet</display-name>
+    <servlet-name>MasterServlet</servlet-name>
+    <servlet-class>com.trms.servlet.MasterServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>HomepageServlet</servlet-name>
-    <url-pattern>/home</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>FormServlet</display-name>
-    <servlet-name>FormServlet</servlet-name>
-    <servlet-class>com.trms.servlet.FormServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FormServlet</servlet-name>
-    <url-pattern>/form</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>LoginServlet</display-name>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.trms.servlet.LoginServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/login</url-pattern>
+    <servlet-name>MasterServlet</servlet-name>
+    <url-pattern>/master</url-pattern>
   </servlet-mapping>
 </web-app>
