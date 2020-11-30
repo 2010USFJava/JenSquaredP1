@@ -1,10 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<title>Final Application Submit</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<div id="container">
+		<nav>
+			<div class="jensquared-logo"></div>
+			<ul>
+				<li><a href="home.html">Home</a></li>
+				<li><a href="FAQs.html">FAQs</a></li>
+				<li><a href="form.html">Application</a>
+				<li><a href="finalsubmitmenu.html">Final Submit</a></li>
+				<li><a href="login.html">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
 
+	<div id="main">
+		<h2>Please submit your final grade and any supporting paperwork:</h2>
+		<br>
+
+		<div class="file-upload inline-block">
+			<label for="upload1" class="file-upload__label btn btn--subtle">
+				<span class="file-upload__text file-upload__text--has-max-width">Upload
+					a file</span>
+			</label> <input type="file" class="file-upload__input" name="upload1"
+				id="upload1">
+		</div>
+
+
+		<h2 class="open1">Please submit your presentation and names of
+			those who attended:</h2>
+		<br>
+
+		<div class="character-count js-character-count">
+			<label class="form-label margin-bottom-xxs" for="textareaName">Name
+				of attendees:</label>
+
+			<textarea class="form-control width-100% js-character-count__input"
+				name="textareaName" id="textareaName" maxlength="300"></textarea>
+
+			<div
+				class="character-count__helper character-count__helper--dynamic text-sm margin-top-xxxs"
+				aria-live="polite" aria-atomic="true">
+				You have <span class="js-character-count__counter"></span>
+				characters left
+			</div>
+
+			<div
+				class="character-count__helper character-count__helper--static text-sm margin-top-xxxs">Max
+				300 characters</div>
+		</div>
+
+		<div class="file-upload inline-block">
+			<label for="upload1" class="file-upload__label btn btn--subtle">
+				<span class="file-upload__text file-upload__text--has-max-width">Upload
+					a file</span>
+			</label> <input type="file" class="file-upload__input" name="upload1"
+				id="upload1">
+		</div>
+	</div>
+
+	<script type="text/javascript" src="finalsubmit.js"></script>
 </body>
 </html>
