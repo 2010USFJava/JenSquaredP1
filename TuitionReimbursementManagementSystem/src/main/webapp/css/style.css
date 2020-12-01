@@ -9,7 +9,6 @@ html, body {
 }
 
 #container {
-  min-height: 100%
   margin: 0 auto 0 0px;
   align-items: center;
 }
@@ -79,7 +78,7 @@ nav ul li li a:hover{
   width: 500px;
   height: 100px;
   margin-left: 10px;
-  background-image: url(img/JenSquared.png);
+  background-image: url(JenSquared.png);
   background-size: 75%;
   background-repeat: no-repeat;
   background-position: center left;
@@ -339,10 +338,12 @@ html:not(.js ) .select .icon { // hide icon if JS = disabled
 }
 
 /* -------------------------------- 
+
 File#: _1_btn-states
 Title: Buttons states
 Descr: Multi-state button elements
 Usage: codyhouse.co/license
+
 -------------------------------- */
 
 .btn .btn__content-a {
