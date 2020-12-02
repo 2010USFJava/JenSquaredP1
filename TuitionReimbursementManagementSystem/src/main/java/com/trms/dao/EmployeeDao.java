@@ -2,9 +2,12 @@ package com.trms.dao;
 
 import java.sql.SQLException;
 
+import com.trms.beans.Employee;
+
 public interface EmployeeDao {
 	
-	public String getEmployee() throws SQLException;
-	public int getEmployeeID() throws SQLException;
+	public Employee getEmployeeByID() throws SQLException;
+	public Employee getEmployeeByUsername() throws SQLException;
+	public int getEmployeeIDByUsername() throws SQLException;
 
 }
