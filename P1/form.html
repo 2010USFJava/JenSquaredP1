@@ -22,7 +22,7 @@
 			<div id="main1">
 				<div class="panel-body">
 					<!-- Reimbursement Form -->
-					<form id="form" action="form" method="POST">
+					<form id="form" action="Insert.php" method="POST">
 						<!-- Employee Name -->
 						<div class="form-group">
 							<label for="empfirstname">Enter Name:</label> 
@@ -52,7 +52,7 @@
 						<div class="form-group">
 							<label for="eventtype">Event Type:</label>
 							<select
-								name="eventgroup" class="form-control" id="eventtype"
+								name="eventtype" class="form-control" id="eventtype"
                                 required="required">
                                 <option value="200" selected="selected">University Courses</option>
                                 <option value="201">Seminars</option>
@@ -236,7 +236,7 @@
 						<!-- Grade Format -->
 						<div class="form-group">
 							<label for="gradeformat">Grade Format:</label> <select
-								name="eventgroup" class="form-control" id="gradeformat"
+								name="gradeformat" class="form-control" id="gradeformat"
                                 required="required">
                                 <option value="300">Final Grade</option>
                                 <option value="301">Presentation</option>
