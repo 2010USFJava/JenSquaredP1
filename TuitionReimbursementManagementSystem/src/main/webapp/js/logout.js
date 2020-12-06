@@ -1,6 +1,7 @@
 /**
- * TODO: end session
+ * TODO: end session - happens automatically?
  * 		 forward to login
+ * 		 delete cookie
  */
 
 //adds security to finalize logout

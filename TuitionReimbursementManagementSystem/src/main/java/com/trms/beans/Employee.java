@@ -1,6 +1,10 @@
 package com.trms.beans;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable{
+	
+	private static final long serialVersionUID = 6946773473518278426L;
 	
 	private int eid;
 	private String name;

@@ -1,14 +1,19 @@
 package com.trms.util;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnFactory {
+	
+	static {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	//Singleton Factory
 	//private static instance of itself
@@ -32,18 +37,23 @@ public class ConnFactory {
 			Properties prop = new Properties();
 
 			try {
-				prop.load(new FileReader("database.properties"));
-				conn = DriverManager.getConnection(prop.getProperty("url"),
-						prop.getProperty("username"),prop.getProperty("password"));
+				String url = "jdbc:postgresql://java2010rev.cfqzgdfohgof.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=jensquared";
+				String username = "jenny77";
+				String password = "zeus1418";
+//				ClassLoader loader = Thread.currentThread().getContextClassLoader();
+//	            prop.load(loader.getResourceAsStream("database.properties"));
+//				conn = DriverManager.getConnection(prop.getProperty("url"),
+//						prop.getProperty("username"),prop.getProperty("password"));
+				conn = DriverManager.getConnection(url, username, password);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+//			} catch (FileNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
 			}
 			return conn;
 		}	
