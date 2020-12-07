@@ -12,23 +12,23 @@ public class JSONRequestHelper {
 	
 	public static void process(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException{
 		switch(req.getRequestURI()) {
-		case "/TuitionReimbursementManagementSystem/getsession/json":
+		case "/TuitionReimbursementManagementSystem/getsession.json":
 			EmployeeController.getSessionUser(req, res);
 			break;
 		case "":
 			
 			break;
-		case "":
-			
-			break;
-		case "":
-			
-			break;
-		case "":
-			
-			break;
+//		case "":
+//			
+//			break;
+//		case "":
+//			
+//			break;
+//		case "":
+//			
+//			break;
 		default:
-			System.out.println("Everything went wrong.");
+			System.out.println("Everything went wrong JSON.");
 		}
 	}
 

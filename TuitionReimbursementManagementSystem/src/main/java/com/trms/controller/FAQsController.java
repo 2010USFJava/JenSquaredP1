@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 public class FAQsController {
 	
 	public static String faqs(HttpServletRequest req) {
-		return "webapp/html/faq.html";
+		return "html/faq.html";
 	}
 
 }

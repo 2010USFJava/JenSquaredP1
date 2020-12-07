@@ -7,7 +7,7 @@ function payload(){
 	var email = document.getElementById("inputEmail").innerHTML;
 	var password = document.getElementById("inputPassword").innerHTML;
 	var obj = {email,password};
-	var login = json.stringify(login);
+	var log = json.stringify(obj);
 }
 
 
@@ -24,5 +24,5 @@ function login() {
 		}
 	}
 	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/login.master",true);
-	xhr.send(login);
+	xhr.send(log);
 }

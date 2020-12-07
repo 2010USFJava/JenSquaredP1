@@ -7,7 +7,7 @@ public class LogoutController {
 	
 	public static String logout(HttpServletRequest req) {
 		Cookie ck = new Cookie("name","");
-		return "html/logout.master";
+		return "html/logout.html";
 	}
 
 }

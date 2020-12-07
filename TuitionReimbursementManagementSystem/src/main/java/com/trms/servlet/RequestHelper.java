@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.trms.controller.FAQsController;
 import com.trms.controller.FormPageController;
+import com.trms.controller.HomeController;
 import com.trms.controller.LoginController;
 import com.trms.controller.LogoutController;
 
@@ -15,8 +16,7 @@ public class RequestHelper {
 		case "/TuitionReimbursementManagementSystem/login.master":
 			return LoginController.login(req);
 		case "/TuitionReimbursementManagementSystem/home.master":
-			System.out.println("home.master test");
-			return null;
+			return HomeController.home(req);
 		case "/TuitionReimbursementManagementSystem/faq.master":
 			return FAQsController.faqs(req);
 		case "/TuitionReimbursementManagementSystem/form.master":

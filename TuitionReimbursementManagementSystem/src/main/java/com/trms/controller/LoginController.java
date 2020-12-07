@@ -18,10 +18,8 @@ static TRMSService serv = new TRMSService();
 		String email = req.getParameter("inputEmail");
 		String password = req.getParameter("inputPassword");
 		Employee e = serv.loginGetEmployee(email, password);
-		System.out.println(e.getEmail());
 		if(e==null) {
 			return serv.wrongCreds();
-//			return "html/unsuccessfullogin.html";
 		}else {
 			req.getSession().setAttribute("current user", email);
 //			req.getSession().setAttribute("currentEmp", e);
