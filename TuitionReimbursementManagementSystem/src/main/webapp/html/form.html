@@ -2,18 +2,18 @@
 <head>
 <meta charset="utf-8">
 <title>TRMS Application</title>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
 	<div id="container">
 		<nav>
 			<div class="jensquared-logo"></div>
 			<ul>
-				<li><a href="home.html">Home</a></li>
-				<li><a href="faq.html">FAQs</a></li>
-				<li><a href="form.html">Application</a>
-				<li><a href="finalsubmitmenu.html">Final Submit</a></li>
-				<li><a href="logout.html">Logout</a></li>
+				<li><a href="/TuitionReimbursementManagementSystem/home.master">Home</a></li>
+				<li><a href="/TuitionReimbursementManagementSystem/faq.master">FAQs</a></li>
+				<li><a href="/TuitionReimbursementManagementSystem/form.master">Application</a>
+				<li><a
+					href="/TuitionReimbursementManagementSystem/logout.master">Logout</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -22,14 +22,14 @@
 		<div id="main1">
 			<div class="panel-body">
 				<!-- Reimbursement Form -->
-				<form id="form" action="form" method="POST">
+				<form id="form"
+					action="/TuitionReimbursementManagementSystem/form.master"
+					method="POST">
 					<!-- Employee Name -->
 					<div class="form-group">
-						<label for="empfirstname">Enter Name:</label> <input type="text"
-							class="form-control" id="empfirstname" name="empfirstname"
-							placeholder="First Name " required="required"> <input
-							type="text" class="form-control" id="emplastname"
-							name="emplastname" placeholder="Last Name " required="required">
+						<label for="empname">Enter Name:</label> <input type="text"
+							class="form-control" id="empnamename" name="empname"
+							placeholder="Enter Full Name" required="required">
 					</div>
 					<br>
 
@@ -44,7 +44,7 @@
 					<!-- Event Type -->
 					<div class="form-group">
 						<label for="eventtype">Event Type:</label> <select
-							name="eventgroup" class="form-control" id="eventtype"
+							name="eventtype" class="form-control" id="eventtype"
 							required="required">
 							<option value="200" selected="selected">University
 								Courses</option>
@@ -59,7 +59,7 @@
 
 					<!-- Event Name -->
 					<div class="form-group">
-						<label for="eventdescription">Event Name:</label>
+						<label for="eventname">Event Name:</label>
 						<h6>(Max 255 characters.)</h6>
 						<input type="text" class="form-control" id="eventname"
 							name="eventname" placeholder="Enter name of event"
@@ -193,10 +193,8 @@
 					<!-- Time Missed -->
 					<div class="form-group">
 						<label for="timemissed">Amount of Time Missed:</label> <input
-							type="text" name="timemissed" class="form-control"
-							id="timemissed" placeholder="HR" required="required"> <input
-							type="text" name="timemissed" class="form-control"
-							id="timemissed" placeholder="MM" required="required">
+							type="number" name="timemissed" class="form-control"
+							id="timemissed" placeholder="HR:MM" required="required">
 					</div>
 					<br>
 
@@ -204,7 +202,7 @@
 					<div class="form-group">
 						<label for="eventlocation">Event Location:</label>
 						<textarea rows="5" cols="80" class="form-control"
-							id="eventdescription" name="eventlocation"
+							id="eventlocation" name="eventlocation"
 							placeholder="Enter location of event " required="required"></textarea>
 					</div>
 					<br>
@@ -213,15 +211,15 @@
 					<div class="form-group">
 						<label for="reimbursementcost">Amount of Event:</label> <input
 							type="number" class="form-control" id="reimbursementcost"
-							step="0.01" max="1000" placeholder="Enter amount "
-							required="required">
+							name="reimbursementcost" step="0.01" max="1000"
+							placeholder="Enter amount " required="required">
 					</div>
 					<br>
 
 					<!-- Grade Format -->
 					<div class="form-group">
 						<label for="gradeformat">Grade Format:</label> <select
-							name="eventgroup" class="form-control" id="gradeformat"
+							name="gradeformat" class="form-control" id="gradeformat"
 							required="required">
 							<option value="300">Final Grade</option>
 							<option value="301">Presentation</option>
@@ -252,8 +250,9 @@
 					<!-- Pre-Approval -->
 					<div class="form-group">
 						<label for="preapproval">Did you receive pre-approval?</label> <input
-							type="checkbox" value="Yes">Yes
-							<input type="checkbox" value="No">No
+							name="preapproval" id="preapproval" type="checkbox" value="Yes">Yes
+						<input name="preapproval" id="preapproval" type="checkbox"
+							value="No">No
 					</div>
 					<br>
 
@@ -275,7 +274,8 @@
 					<br>
 					<!-- Submit -->
 					<div>
-						<button type="submit" class="btn btn-success btn-block">Submit</button>
+						<button class="btn btn-success btn-block" id="formsubmit"
+							onclick="sendData()">Submit</button>
 					</div>
 					<br>
 				</form>
@@ -283,7 +283,7 @@
 			<div class="panel-footer"></div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../js/form.js"></script>
+	<script type="text/javascript" src="./js/form.js"></script>
 
 
 

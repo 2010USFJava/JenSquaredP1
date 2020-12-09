@@ -21,7 +21,7 @@ static TRMSService serv = new TRMSService();
 		if(e==null) {
 			return serv.wrongCreds();
 		}else {
-			req.getSession().setAttribute("current user", email);
+			req.getSession().setAttribute("current user", e);
 //			req.getSession().setAttribute("currentEmp", e);
 //			Cookie ck = new Cookie("name",e.getName());
 //			res.addCookie(ck);

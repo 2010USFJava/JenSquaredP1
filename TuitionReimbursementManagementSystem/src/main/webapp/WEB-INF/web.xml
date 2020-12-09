@@ -29,4 +29,5 @@
     <servlet-name>JSONMasterServlet</servlet-name>
     <url-pattern>*.json</url-pattern>
   </servlet-mapping>
+  <!--<mvc:resources mapping="/resources/**" location="/css"></mvc:resources>-->
 </web-app>

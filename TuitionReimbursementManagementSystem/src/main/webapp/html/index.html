@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Login</title>
 <!-- Bootstrap core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/bootstrap.min.css" rel="stylesheet"/>
 
 <style>
 .bd-placeholder-img {
@@ -23,7 +23,7 @@
 }
 </style>
 <!-- Custom styles for this template -->
-<link href="../css/signin.css" rel="stylesheet">
+<link href="./css/signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
 	<form class="form-signin" method="post" action="/TuitionReimbursementManagementSystem/login.master">
@@ -31,17 +31,17 @@
 		<label for="inputEmail" class="sr-only"></label> <input type="text"
 			id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address"
 			required autofocus> <label for="inputPassword"
-			class="sr-only"></label> <input type="text" id="inputPassword" name="inputPassword"
+			class="sr-only"></label> <input type="password" id="inputPassword" name="inputPassword"
 			class="form-control" placeholder="Password" required>
 		<div class="checkbox mb-3">
-			<label> <input type="checkbox" value="remember-me">
-				Remember me
+			<label> <input type="checkbox" value="show-password" id="show-password" onclick="togglePassword()">
+				Show Password
 			</label>
 		</div>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 			In</button>
 		<p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 	</form>
-	<script type="text/javascript" src="../js/index.js"></script>
+	<script type="text/javascript" src="./js/index.js"></script>
 </body>
 </html>

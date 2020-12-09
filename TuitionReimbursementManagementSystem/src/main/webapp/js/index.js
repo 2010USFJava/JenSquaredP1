@@ -3,9 +3,22 @@ window.onload = function() {
 	login();
 }
 
+function togglePassword() {
+  var password = document.getElementById("inputPassword");
+  if (password.type === "password") {
+    password.type = "text";
+  } else {
+    password.type = "password";
+  }
+} 
+
 function payload(){
+	console.log("in payload fcn");
 	var email = document.getElementById("inputEmail").innerHTML;
-	var password = document.getElementById("inputPassword").innerHTML;
+	togglePassword();
+	console.log(password.type);
+	password.innerHTML;
+	console.log(password);
 	var obj = {email,password};
 	var log = json.stringify(obj);
 }
@@ -23,6 +36,7 @@ function login() {
 			payload();
 		}
 	}
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/login.master",true);
+	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/home",true);
 	xhr.send(log);
 }
+

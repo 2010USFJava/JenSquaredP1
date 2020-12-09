@@ -29,7 +29,7 @@ public class Form {
 	private String event_description;
 	private LocalDate event_date;
 	private LocalTime event_time;
-	private LocalTime time_missed;
+	private double time_missed;
 	private String event_location;
 	private double event_cost;
 	
@@ -78,7 +78,7 @@ public class Form {
 	}
 
 	public Form(int eid, int event_id, LocalDate submission_date, eventType event_type, String event_name,
-			String event_description, LocalDate event_date, LocalTime event_time, LocalTime time_missed,
+			String event_description, LocalDate event_date, LocalTime event_time, double time_missed,
 			String event_location, double event_cost, gradeFormat grade_format, double current_grade,
 			double reimbursement_amount, boolean pre_approval, boolean urgent, formStatus form_status,
 			boolean file_attachment, boolean supervisor_approval, boolean department_head_approval,
@@ -173,11 +173,11 @@ public class Form {
 		this.event_time = event_time;
 	}
 
-	public LocalTime getTime_missed() {
+	public double getTime_missed() {
 		return time_missed;
 	}
 
-	public void setTime_missed(LocalTime time_missed) {
+	public void setTime_missed(double time_missed) {
 		this.time_missed = time_missed;
 	}
 
