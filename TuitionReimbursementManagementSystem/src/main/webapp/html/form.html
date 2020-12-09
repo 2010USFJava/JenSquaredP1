@@ -22,14 +22,12 @@
 		<div id="main1">
 			<div class="panel-body">
 				<!-- Reimbursement Form -->
-				<form id="form" action="./FormServlet" method="POST">
+				<form id="form" action="/TuitionReimbursementManagementSystem/form.master" method="POST">
 					<!-- Employee Name -->
 					<div class="form-group">
-						<label for="empfirstname">Enter Name:</label> <input type="text"
-							class="form-control" id="empfirstname" name="empfirstname"
-							placeholder="First Name " required="required"> <input
-							type="text" class="form-control" id="emplastname"
-							name="emplastname" placeholder="Last Name " required="required">
+						<label for="empname">Enter Name:</label> <input type="text"
+							class="form-control" id="empnamename" name="empname"
+							placeholder="Enter Full Name" required="required"> 
 					</div>
 					<br>
 
@@ -193,10 +191,8 @@
 					<!-- Time Missed -->
 					<div class="form-group">
 						<label for="timemissed">Amount of Time Missed:</label> <input
-							type="text" name="timemissed" class="form-control"
-							id="timemissed" placeholder="HR" required="required"> <input
-							type="text" name="timemissed" class="form-control"
-							id="timemissed" placeholder="MM" required="required">
+							type="number" name="timemissed" class="form-control"
+							id="timemissed" placeholder="HR:MM" required="required">
 					</div>
 					<br>
 
@@ -276,7 +272,7 @@
 					<!-- Submit -->
 					<div>
 						<button class="btn btn-success btn-block" id="formsubmit"
-						 onclick="sendForm()">Submit</button>
+						 onclick="sendData()">Submit</button>
 					</div>
 					<br>
 				</form>

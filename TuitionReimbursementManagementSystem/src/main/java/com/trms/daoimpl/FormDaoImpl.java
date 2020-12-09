@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ import com.trms.util.ConnFactory;
 
 public class FormDaoImpl implements FormDao {
 	public static ConnFactory cf = ConnFactory.getInstance();
-	
+
 	LocalDateTime localDateTime = LocalDateTime.now();
 	LocalDate localDate = localDateTime.toLocalDate();
 	LocalTime localTime = localDateTime.toLocalTime();
@@ -32,11 +33,6 @@ public class FormDaoImpl implements FormDao {
 	public void newForm(Form f) throws SQLException {
 		Connection conn = cf.getConnection();
 		String sql = "insert into form values(eid,DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-//		Date date = Date.valueOf(LocalDate.now());
-//		Time time = Time.valueOf(LocalTime.parse(sql));
-//		LocalDate localDate = LocalDate.now();
-//		LocalDate localDate1 = LocalDate.parse(sql);
-//		LocalTime localTime = LocalTime.parse(sql);
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setDate(1, date);
 		ps.setString(2, f.getEvent_type().toString());
@@ -44,7 +40,7 @@ public class FormDaoImpl implements FormDao {
 		ps.setString(4, f.getEvent_description());
 		ps.setDate(5, date);
 		ps.setObject(6, time);
-		ps.setObject(7, time);
+		ps.setDouble(7, f.getTime_missed());
 		ps.setString(8, f.getEvent_location());
 		ps.setDouble(9, f.getEvent_cost());
 		ps.setString(10, f.getGrade_format().toString());
@@ -60,6 +56,7 @@ public class FormDaoImpl implements FormDao {
 		ps.setString(20, f.getApproval_response());
 		ps.setString(21, f.getDenial_response());
 		ps.executeUpdate();
+		
 	}
 
 	@Override
@@ -111,16 +108,18 @@ public class FormDaoImpl implements FormDao {
 	@Override
 	public List<Form> getUrgentPendingForms() throws SQLException {
 		List<Form> penForms = new ArrayList<Form>();
-		Connection conn= cf.getConnection();
-		String sql= "select * from form where urgent=true and form_status=pending and eid=?";
+		Connection conn = cf.getConnection();
+		String sql = "select * from form where urgent=true and form_status=pending and eid=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
-		while(rs.next()) {
-			f = new Form(rs.getInt(1), rs.getInt(2), LocalDate.parse(rs.getString(3)), eventType.valueOf(rs.getString(4)), rs.getString(5),rs.getString(6), rs.getDate(7).toLocalDate(), 
-				rs.getTime(8).toLocalTime(), rs.getTime(9).toLocalTime(), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)), rs.getDouble(13), 
-				rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16), formStatus.valueOf(rs.getString(17)), rs.getBoolean(18),
-				rs.getBoolean(19), rs.getBoolean(20), rs.getBoolean(21), rs.getString(22), rs.getString(23));
+		while (rs.next()) {
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getTime(8).toLocalTime(),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			penForms.add(f);
 		}
 		return penForms;
@@ -135,11 +134,13 @@ public class FormDaoImpl implements FormDao {
 		ps.setInt(1, eid);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
-		while(rs.next()) {
-			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)), rs.getString(5),rs.getString(6), rs.getDate(7).toLocalDate(), 
-				rs.getTime(8).toLocalTime(), rs.getTime(9).toLocalTime(), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)), rs.getDouble(13), 
-				rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16), formStatus.valueOf(rs.getString(17)), rs.getBoolean(18),
-				rs.getBoolean(19), rs.getBoolean(20), rs.getBoolean(21), rs.getString(22), rs.getString(23));
+		while (rs.next()) {
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getTime(8).toLocalTime(),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			nonUForms.add(f);
 		}
 		return nonUForms;
@@ -154,14 +155,16 @@ public class FormDaoImpl implements FormDao {
 		ps.setInt(1, eid);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
-		while(rs.next()) {
-			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)), rs.getString(5),rs.getString(6), rs.getDate(7).toLocalDate(), 
-				rs.getTime(8).toLocalTime(), rs.getTime(9).toLocalTime(), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)), rs.getDouble(13), 
-				rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16), formStatus.valueOf(rs.getString(17)), rs.getBoolean(18),
-				rs.getBoolean(19), rs.getBoolean(20), rs.getBoolean(21), rs.getString(22), rs.getString(23));
+		while (rs.next()) {
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getTime(8).toLocalTime(),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			cForms.add(f);
 		}
 		return cForms;
-	
+
 	}
 }

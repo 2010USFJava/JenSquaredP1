@@ -1,42 +1,75 @@
 package com.trms.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trms.beans.Form;
+import com.trms.beans.Form.eventType;
+import com.trms.beans.Form.formStatus;
+import com.trms.beans.Form.gradeFormat;
 import com.trms.dao.FormDao;
 import com.trms.daoimpl.FormDaoImpl;
 
 public class FormController {
 	static FormDao fdao = new FormDaoImpl();
 
-	public static String newForm(HttpServletRequest req) throws SQLException {
+	public static String newForm(HttpServletRequest req) throws SQLException, JsonProcessingException {
 		if (!req.getMethod().equals("POST")) {
 			return "html/form.html";
 		}
-		String name = req.getParameter("empfirstname, emplastname");
-		String LocalDate = req.getParameter("todaysdate");
-		String eventtype =  req.getParameter("eventtype");
+		ObjectMapper om = new ObjectMapper();
+		
+		LocalDate submissionDate = LocalDate.parse(req.getParameter("todaysdate"));
+		try {
+		String etype = om.writeValueAsString(req.getParameter("eventtype"));
+		eventType eventtype = om.readValue(etype, eventType.class);
+		
 		String eventname = req.getParameter("eventname");
 		String desc = req.getParameter("eventdescription");
-		String edate = req.getParameter("eventdate");
-		String LocalTime =  req.getParameter("time");
-		String tmissed = req.getParameter("timemissed");
+		LocalDate eventdate = LocalDate.parse(req.getParameter("eventdate"));
+		LocalTime eventtime = LocalTime.parse(req.getParameter("eventtime"));
+		double tmissed = Double.valueOf(req.getParameter("timemissed"));
 		String eloc = req.getParameter("eventlocation");
-		int rcost = Integer.valueOf(req.getParameter("reimbursmentcost"));
-		String gformat = req.getParameter("gradeformat");
-		String pgrad = req.getParameter("passinggrade");
-		int ramou = Integer.valueOf(req.getParameter("reimbursmentamount"));
-		String preapp = req.getParameter("preapproval");
-		String attf =  req.getParameter("attachedfile");
-		String attf1 =  req.getParameter("attachedfile");
-		Form f = new Form(name, LocalDate, eventtype, eventname, desc, edate, LocalTime, 
-				tmissed, eloc, rcost, gformat, pgrad, ramou, preapp, attf, attf1);
+		double rcost = Double.valueOf(req.getParameter("reimbursmentcost"));
 		
+		String gfor = om.writeValueAsString(req.getParameter("gradeformat"));
+		gradeFormat gformat = om.readValue(gfor, gradeFormat.class); 
+		
+		double pgrad = Double.valueOf(req.getParameter("passinggrade"));
+		double ramou = Double.valueOf(req.getParameter("reimbursmentamount"));
+		Boolean preapp = Boolean.valueOf(req.getParameter("preapproval"));
+		Period intervalPeriod = Period.between(submissionDate, eventdate);
+		Boolean urgent =false;
+		if(intervalPeriod.getDays() <= 14) {
+			 urgent=true;
+		}
+		Boolean attf = Boolean.valueOf(req.getParameter("attachedfile"));
+		
+		Form f = new Form(0,0,submissionDate, eventtype, eventname, desc, eventdate, eventtime, tmissed, eloc, rcost, gformat,
+				pgrad, ramou, preapp, urgent, formStatus.PENDING, attf, false, false, false, null, null);
+
 		fdao.newForm(f);
-		return "form.master";
+	
 		
+	} catch (JsonParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (JsonMappingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return "form.master";
 	}
 }

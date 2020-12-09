@@ -64,8 +64,6 @@ function alert() {
 }
 
 function payload(){
-    var firstname = document.getElementById("empfirstname").innerHTML;
-	var lastname = document.getElementById("emplastname").innerHTML;	
 	var todaysdate = document.getElementById("todaysdate").innerHTML;	
 	var eventtype = document.getElementById("eventtype").innerHTML;
 	var eventname = document.getElementById("eventname").innerHTML;	
@@ -81,9 +79,9 @@ function payload(){
 	var preapproval = document.getElementById("preapproval").innerHTML;	
 	var attachedfile = document.getElementById("attachedfile").innerHTML;	
 	
-	var obj = {firstname,lastname,todaysdate,eventtype,eventname,eventdescription,eventdate,eventtime,timemissed,eventlocation,
+	var obj = {todaysdate,eventtype,eventname,eventdescription,eventdate,eventtime,timemissed,eventlocation,
 	reimbursementcost,gradeformat,passinggrade,reimbursementamount,preapproval,attachedfile};
-	var sendForm = json.stringify(sendForm);	
+	var sendData = json.stringify(obj);	
 }
 
 function sendForm() {
@@ -103,7 +101,7 @@ function sendForm() {
 	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.master", true);
 	
 
-	xhttp.send(sendForm);
+	xhttp.send(sendData);
 }
 
 window.onload = function() {
