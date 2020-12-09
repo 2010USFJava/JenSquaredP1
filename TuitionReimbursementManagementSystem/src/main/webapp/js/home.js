@@ -15,8 +15,8 @@ function getCookie(){
 		}
 	}
 
-	xhr.open("GET", "http://localhost:8080/TuitionReimbursementManagemenetSystem/getSession.master", true);
-	console.log(ck);
+	xhr.open("GET", "http://localhost:8080/TuitionReimbursementManagementSystem/getsession.master", true);
+	//console.log(ck);
 	xhr.send();
 }
 
