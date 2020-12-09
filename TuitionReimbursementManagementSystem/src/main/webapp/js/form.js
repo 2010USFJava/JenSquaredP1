@@ -100,8 +100,7 @@ function sendForm() {
 
 	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.master", true);
 	
-
-	xhttp.send(sendData);
+	xhr.send(sendData);
 }
 
 window.onload = function() {

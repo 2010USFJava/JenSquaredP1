@@ -36,7 +36,7 @@ function login() {
 			payload();
 		}
 	}
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/home",true);
+	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/login.master",true);
 	xhr.send(log);
 }
 

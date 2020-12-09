@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.trms.controller.EmployeeController;
+import com.trms.controller.FormController;
+import com.trms.controller.LogoutController;
 
 public class JSONRequestHelper {
 	
@@ -15,8 +17,8 @@ public class JSONRequestHelper {
 		case "/TuitionReimbursementManagementSystem/getsession.json":
 			EmployeeController.getSessionUser(req, res);
 			break;
-		case "":
-			
+		case "/TuitionReimbursementManagementSystem/logout.json":
+			LogoutController.logout(req,res);
 			break;
 //		case "":
 //			

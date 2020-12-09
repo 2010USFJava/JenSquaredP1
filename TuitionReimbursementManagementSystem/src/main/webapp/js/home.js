@@ -1,59 +1,33 @@
 window.onload = function() {
 	console.log("window");
-	this.document.getElementById("home").addEventListener("click",goHome(),false);
-	this.document.getElementById("faq").addEventListener("click",goFAQs(),false);
-	this.document.getElementById("form").addEventListener("click",goApp(),false);
-	this.document.getElementById("logout").addEventListener("click",goLogout(),false);
+	getCookie();
 }
 
-function goHome() {
+function getCookie(){
 	let xhr = new XMLHttpRequest();
+	
 	xhr.onreadystatechange = function() {
-		console.log("the ready state has changed");
+		console.log("in ORSC");
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			let e = JSON.parse(xhttp.responseText);
-			console.log(e);
+			console.log(xhr.responseText);
+			let user = JSON.parse(xhr.responseText);
+			user.name=document.getElementById("name").innerHTML;
 		}
 	}
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/home.master",true);
+
+	xhr.open("GET", "http://localhost:8080/TuitionReimbursementManagemenetSystem/getSession.master", true);
+	console.log(ck);
 	xhr.send();
 }
 
-function goFAQs() {
-	let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		console.log("the ready state has changed");
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			let e = JSON.parse(xhttp.responseText);
-			console.log(e);
-		}
-	}
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/faq.master",true);
-	xhr.send();
+function getUrgentPending(){
+	
 }
 
-function goApp() {
-	let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		console.log("the ready state has changed");
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			let e = JSON.parse(xhttp.responseText);
-			console.log(e);
-		}
-	}
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/form.master",true);
-	xhr.send();
+function getNormalPending(){
+	
 }
 
-function goLogout() {
-	let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		console.log("the ready state has changed");
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			let e = JSON.parse(xhttp.responseText);
-			console.log(e);
-		}
-	}
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/logout.master",true);
-	xhr.send();
+function getClosed(){
+	
 }

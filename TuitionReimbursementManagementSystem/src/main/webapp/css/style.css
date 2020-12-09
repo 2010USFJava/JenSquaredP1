@@ -55,6 +55,21 @@ nav ul li a:hover {
   text-decoration: none;
 }
 
+nav ul li p {
+  display: block;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: didot;
+  color: white;
+  padding: 57px 16px 13px;
+}
+
+nav ul li p:hover {
+  color: #F3D2AC;
+  text-decoration: none;
+}
+
+
 nav ul li ul {
   display: none;
   position: absolute;
