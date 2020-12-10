@@ -1,4 +1,4 @@
-document.getElementById('eventdescription').style.height = "100px";
+mdocument.getElementById('eventdescription').style.height = "100px";
 document.getElementById('eventdescription').style.width = "400px";
 
 var today = new Date();
@@ -78,10 +78,17 @@ function payload(){
 	var reimbursementamount = document.getElementById("reimbursementamount").innerHTML;	
 	var preapproval = document.getElementById("preapproval").innerHTML;	
 	var attachedfile = document.getElementById("attachedfile").innerHTML;	
+	if(attachedfile != null){
+		var filebool = true;
+	}
 	
 	var obj = {todaysdate,eventtype,eventname,eventdescription,eventdate,eventtime,timemissed,eventlocation,
-	reimbursementcost,gradeformat,passinggrade,reimbursementamount,preapproval,attachedfile};
+	reimbursementcost,gradeformat,passinggrade,reimbursementamount,preapproval,filebool};
 	var sendData = json.stringify(obj);	
+}
+
+function payload2(){
+	
 }
 
 function sendForm() {
@@ -101,6 +108,21 @@ function sendForm() {
 	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.json", true);
 	
 	xhr.send(sendData);
+}
+
+function sendAttachment(eventId, file){
+	let xhr2=new XMLHttpRequest();
+	xhr2.onreadystatechange-function(){
+		console.log("in ORSC 2");
+		if(xhr2.readyState==4&&xhr2.status==200){
+			console.log(xhr2.responseText);
+			let attachment = JSON.parse(xhr2.responseText);
+			console.log(attachment);
+			payload2();
+		}
+	}
+	xhr2.open("POST","http://localhost:8080/TuitionReimbursementManagemenetSystem/attachments.json", true);
+	xhr2.send(sendFile);
 }
 
 window.onload = function() {

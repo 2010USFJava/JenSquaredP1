@@ -16,6 +16,7 @@ public class EmployeeController {
 	public static void getSessionUser(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException{
 		System.out.println("in employee controller");
 		Employee e = (Employee) req.getSession().getAttribute("currentuser");
+		res.setContentType("text/plain");
 		res.getWriter().write(new ObjectMapper().writeValueAsString(e));
 //		Cookie ck = new Cookie("name",e);
 //		res.addCookie(ck);

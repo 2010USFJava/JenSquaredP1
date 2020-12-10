@@ -3,10 +3,6 @@ window.onload = function() {
 	getCookie();
 }
 
-function loadName(){
-	document.getElementById("name").innerHTML=user.name;
-}
-
 function getCookie(){
 	let xhr = new XMLHttpRequest();
 	
@@ -17,11 +13,11 @@ function getCookie(){
 			let user = JSON.parse(xhr.responseText);
 			console.log(user);
 			document.getElementById("name").innerHTML=user.name;
+			document.getElementById("amtavailable").innerHTML=user.available_reimbursement;
 		}
 	}
 
 	xhr.open("GET", "http://localhost:8080/TuitionReimbursementManagementSystem/getsession.json", true);
-	//console.log(ck);
 	xhr.send();
 }
 

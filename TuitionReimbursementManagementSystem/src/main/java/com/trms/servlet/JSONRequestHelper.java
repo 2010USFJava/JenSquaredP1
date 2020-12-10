@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.trms.controller.AttachmentsController;
 import com.trms.controller.EmployeeController;
 import com.trms.controller.FormController;
-import com.trms.controller.LogoutController;
 
 public class JSONRequestHelper {
 	
@@ -21,9 +21,9 @@ public class JSONRequestHelper {
 		case "/TuitionReimbursementManagementSystem/form.json":
 			FormController.newForm(req);
 			break;
-//		case "":
-//			
-//			break;
+		case "/TuitionReimbursementManagementSystem/attachments.json":
+			AttachmentsController.newAttachment(req);
+			break;
 //		case "":
 //			
 //			break;
