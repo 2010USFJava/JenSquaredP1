@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 public class LogoutController {
 	
 	public static String logout(HttpServletRequest req, HttpServletResponse res) {
-		Cookie ck = new Cookie("name","");
-		res.addCookie(ck);
+//		Cookie ck = new Cookie("name","");
+//		res.addCookie(ck);
 		return "html/logout.html";
 	}
 

@@ -1,6 +1,7 @@
 package com.trms.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,13 +13,13 @@ import com.trms.controller.LogoutController;
 
 public class JSONRequestHelper {
 	
-	public static void process(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException{
+	public static void process(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException, SQLException{
 		switch(req.getRequestURI()) {
 		case "/TuitionReimbursementManagementSystem/getsession.json":
 			EmployeeController.getSessionUser(req, res);
 			break;
-		case "/TuitionReimbursementManagementSystem/logout.json":
-			LogoutController.logout(req,res);
+		case "/TuitionReimbursementManagementSystem/form.json":
+			FormController.newForm(req);
 			break;
 //		case "":
 //			

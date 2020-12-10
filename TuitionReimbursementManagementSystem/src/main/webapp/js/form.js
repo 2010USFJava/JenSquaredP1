@@ -98,7 +98,7 @@ function sendForm() {
 		}
 	}
 
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.master", true);
+	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.json", true);
 	
 	xhr.send(sendData);
 }

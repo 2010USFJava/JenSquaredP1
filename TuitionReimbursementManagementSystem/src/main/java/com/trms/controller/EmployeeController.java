@@ -17,13 +17,13 @@ public class EmployeeController {
 		System.out.println("in employee controller");
 		Employee e = (Employee) req.getSession().getAttribute("currentuser");
 		res.getWriter().write(new ObjectMapper().writeValueAsString(e));
-		Cookie ck = new Cookie("name",e.getName());
-		res.addCookie(ck);
-		System.out.println("Cookie: "+ck);
-		res.setContentType("text/html");
-		PrintWriter out = res.getWriter();
-		out.print("Hello "+ck.getValue());
-		out.close();
+//		Cookie ck = new Cookie("name",e.getName());
+//		res.addCookie(ck);
+//		System.out.println("Cookie: "+ck);
+//		res.setContentType("text/html");
+//		PrintWriter out = res.getWriter();
+//		out.print("Hello "+ck.getValue());
+//		out.close();
 	}
 
 }

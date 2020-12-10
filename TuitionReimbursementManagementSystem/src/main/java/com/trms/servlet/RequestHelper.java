@@ -26,8 +26,6 @@ public class RequestHelper {
 			return HomeController.home(req);
 		case "/TuitionReimbursementManagementSystem/faq.master":
 			return FAQsController.faqs(req);
-		case "/TuitionReimbursementManagementSystem/form.master":
-			return FormController.newForm(req);
 		case "/TuitionReimbursementManagementSystem/formpage.master":
 			return FormPageController.formPage(req);
 		case "/TuitionReimbursementManagementSystem/finalsubmit.master":
@@ -35,9 +33,6 @@ public class RequestHelper {
 			return null;
 		case "/TuitionReimbursementManagementSystem/logout.master":
 			return LogoutController.logout(req, res);
-		case "/TuitionReimbursementManagementSystem/getsession.master":
-			System.out.println("case worked properly?");
-			EmployeeController.getSessionUser(req, res);
 		default:
 			System.out.println("Everything went wrong.");
 			return null;
