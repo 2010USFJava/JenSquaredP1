@@ -12,5 +12,6 @@ public interface EmployeeDao {
 	public Employee getEmployeeByEmail(String email) throws SQLException;
 	public int getEmployeeIDByUsername(String username) throws SQLException;
 	public List<Employee> getAllEmployees()throws SQLException;
+	public Employee updateReimbursement(Employee e, int eid, Boolean approved, Boolean denied) throws SQLException;
 
 }

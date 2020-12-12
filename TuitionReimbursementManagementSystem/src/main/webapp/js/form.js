@@ -8,7 +8,7 @@ var yyyy = today.getFullYear();
 
 //calculate submission date restriction
 
-function alert() {
+function payload(){
 	document.getElementById("reimbursementcost").value = parseFloat(
 		document.getElementById("reimbursementcost").value).toFixed(2);
 	var amount = document.getElementById("reimbursementcost").value;
@@ -19,51 +19,33 @@ function alert() {
 	document.getElementById('eventtype').addEventListener('change', alert);
 	document.getElementById("todaysdate").value = today;
 
+var reimbursementamount = null;
 	switch (event) {
-		case "200":
-			document.getElementById("reimbursementamount").value = parseFloat(
-				(amount * .80)).toFixed(2);
-			document.getElementById("estReimbAmt").value = parseFloat(
-				(amount * .80)).toFixed(2);
+		case "UCOURSE":
+			reimbursementamount.value = parseFloat((amount * .80)).toFixed(2);
 			;
 			break;
-		case "201":
-			document.getElementById("reimbursementamount").value = parseFloat(
-				(amount * .60)).toFixed(2);
-			document.getElementById("estReimbAmt").value = parseFloat(
-				(amount * .60)).toFixed(2);
+		case "SEMINAR":
+			reimbursementamount.value = parseFloat((amount * .60)).toFixed(2);
 			break;
-		case "202":
-			document.getElementById("reimbursementamount").value = parseFloat(
-				(amount * .75)).toFixed(2);
-			document.getElementById("estReimbAmt").value = parseFloat(
-				(amount * .75)).toFixed(2);
+		case "CERTPREP":
+			reimbursementamount.value = parseFloat((amount * .75)).toFixed(2);
 			break;
-		case "203":
-			document.getElementById("reimbursementamount").value = parseFloat(
-				amount).toFixed(2);
-			document.getElementById("estReimbAmt").value = parseFloat(amount)
-				.toFixed(2);
+		case "CERT":
+			reimbursementamount.value = parseFloat(amount).toFixed(2);
 			break;
-		case "204":
-			document.getElementById("reimbursementamount").value = parseFloat(
-				(amount * .90)).toFixed(2);
-			document.getElementById("estReimbAmt").value = parseFloat(
-				(amount * .90)).toFixed(2);
+		case "TECHTRAINING":
+			reimbursementamount.value = parseFloat((amount * .90)).toFixed(2);
 			break;
-		case "205":
-			document.getElementById("reimbursementamount").value = parseFloat(
-				(amount * .30)).toFixed(2);
-			document.getElementById("estReimbAmt").value = parseFloat(
-				(amount * .30)).toFixed(2);
+		case "OTHER":
+			reimbursementamount.value = parseFloat((amount * .30)).toFixed(2);
 			break;
 		default:
 			console.log("Error caught calculating reimbursement amount in form.js");
 	}
 
-}
 
-function payload(){
+
 	var todaysdate = document.getElementById("todaysdate").innerHTML;	
 	var eventtype = document.getElementById("eventtype").innerHTML;
 	var eventname = document.getElementById("eventname").innerHTML;	
@@ -75,7 +57,6 @@ function payload(){
 	var reimbursementcost = document.getElementById("reimbursementcost").innerHTML;	
 	var gradeformat = document.getElementById("gradeformat").innerHTML;		
 	var passinggrade = document.getElementById("passinggrade").innerHTML;
-	var reimbursementamount = document.getElementById("reimbursementamount").innerHTML;	
 	var preapproval = document.getElementById("preapproval").innerHTML;	
 	var attachedfile = document.getElementById("attachedfile").innerHTML;	
 	

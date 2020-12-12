@@ -52,7 +52,7 @@ public class FormController {
 		gradeFormat gformat = om.readValue(gfor, gradeFormat.class); 
 		
 		double pgrad = Double.valueOf(req.getParameter("passinggrade"));
-		double ramou = Double.valueOf(req.getParameter("reimbursementamount"));
+//		double ramou = Double.valueOf(req.getParameter("reimbursementamount"));
 		Boolean preapp = Boolean.valueOf(req.getParameter("preapproval"));
 		Period intervalPeriod = Period.between(submissionDate, eventdate);
 		Boolean urgent =false;
@@ -62,7 +62,7 @@ public class FormController {
 		Boolean attf = Boolean.valueOf(req.getParameter("attachedfile"));
 		
 		Form f = new Form(0,0,submissionDate, eventtype, eventname, desc, eventdate, eventtime, tmissed, eloc, rcost, gformat,
-				pgrad, ramou, preapp, urgent, formStatus.PENDING, attf, false, false, false, null, null);
+				pgrad, preapp, urgent, formStatus.PENDING, attf, false, false, false, null, null);
 
 		fdao.newForm(f);
 	
