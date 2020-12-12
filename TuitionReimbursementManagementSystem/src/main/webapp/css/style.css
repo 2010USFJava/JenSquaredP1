@@ -127,6 +127,41 @@ h2.closed {
   text-align: left;
 }
 
+h3.table {
+  padding-top: 3px;
+  padding-left: 30px;
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+.theader{
+  font-size: 14pt;
+  padding-left: 120px;
+}
+
+input[type="radio"] {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h2.closed {
+  padding-top: 10%;
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+h3.table1 {
+  padding-top: 10%;
+  padding-left: 30px;
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+.theader1{
+  font-size: 14pt;
+  padding-left: 120px;
+}
+
 /* faq
 */
 
