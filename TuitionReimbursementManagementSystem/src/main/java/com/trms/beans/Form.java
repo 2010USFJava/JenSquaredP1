@@ -76,6 +76,14 @@ public class Form {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Form(int event_id, String event_name, double reimbursement_amount, formStatus form_status) {
+		super();
+		this.event_id=event_id;
+		this.event_name=event_name;
+		this.reimbursement_amount=reimbursement_amount;
+		this.form_status=form_status;
+	}
 
 	public Form(int eid, int event_id, LocalDate submission_date, eventType event_type, String event_name,
 			String event_description, LocalDate event_date, LocalTime event_time, double time_missed,

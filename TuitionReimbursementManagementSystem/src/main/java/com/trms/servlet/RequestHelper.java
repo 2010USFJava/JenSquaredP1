@@ -21,7 +21,7 @@ public class RequestHelper {
 		System.out.println(req.getRequestURI());
 		switch (req.getRequestURI()) {
 		case "/TuitionReimbursementManagementSystem/login.master":
-			return LoginController.login(req);
+			return LoginController.login(req, res);
 		case "/TuitionReimbursementManagementSystem/home.master":
 			return HomeController.home(req);
 		case "/TuitionReimbursementManagementSystem/faq.master":

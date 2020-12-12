@@ -23,8 +23,8 @@
 			<div class="panel-body">
 				<!-- Reimbursement Form -->
 				<form id="form"
-					action="/TuitionReimbursementManagementSystem/form.master"
-					method="POST">
+					method="POST"
+					action="/TuitionReimbursementManagementSystem/form.json">
 					<!-- Employee Name -->
 					<div class="form-group">
 						<label for="empname">Enter Name:</label> <input type="text"
@@ -248,28 +248,30 @@
 					<br>
 
 					<!-- Pre-Approval -->
-					<div class="form-group">
+<!-- 					<div class="form-group">
 						<label for="preapproval">Did you receive pre-approval?</label> <input
-							name="preapproval" id="preapproval" type="checkbox" value="Yes">Yes
-						<input name="preapproval" id="preapproval" type="checkbox"
+							name="preapprovalyes" id="preapprovalyes" type="checkbox" value="Yes">Yes
+						<input name="preapprovalno" id="preapprovalno" type="checkbox"
 							value="No">No
 					</div>
 					<br>
 
-					<!-- Pre-Approval Files -->
-					<div>
-						<label for="attachedfile">If yes, please submit email with
-							pre-approval:</label> <input type="file" id="attachedfile"
-							name="attachedfile"
+					<!-- Pre-Approval File -->
+<!-- 					<div>
+						<label for="attachedfileapproval">If yes, please submit email with
+							pre-approval:</label> <input type="file" id="attachedfileapproval"
+							name="attachedfileapproval"
 							accept=".pdf, .png, .jpeg, .jpg, .txt, .doc, .msg" />
 					</div>
 					<br>
 
-					<!-- File Attachment -->
-					<div>
-						<label for="attachedfile">Optional Event Related Files:</label> <input
-							type="file" id="attachedfile" name="attachedfile"
-							accept=".pdf, .png, .jpeg, .jpg, .txt, .doc, .msg" />
+					<!-- Optional File Attachments -->
+<!-- 					<div>
+						<label for="optattachedfile">Optional Event Related Files:</label>
+							<input
+								type="file" id="optattachedfiles" name="optattachedfiles"
+								accept=".pdf, .png, .jpeg, .jpg, .txt, .doc, .msg" 
+								/>
 					</div>
 					<br>
 					<!-- Submit -->

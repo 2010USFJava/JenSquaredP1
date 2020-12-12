@@ -1,4 +1,4 @@
-mdocument.getElementById('eventdescription').style.height = "100px";
+document.getElementById('eventdescription').style.height = "100px";
 document.getElementById('eventdescription').style.width = "400px";
 
 var today = new Date();
@@ -76,15 +76,20 @@ function payload(){
 	var gradeformat = document.getElementById("gradeformat").innerHTML;		
 	var passinggrade = document.getElementById("passinggrade").innerHTML;
 	var reimbursementamount = document.getElementById("reimbursementamount").innerHTML;	
-	var preapproval = document.getElementById("preapproval").innerHTML;	
+	/*var preapproval = null;
+	var preapprovalyes = document.getElementById("preapprovalyes").innerHTML;
+	var preapprovalno = document.getElementById("preapprovalno").innerHTML;
+	if(preapprovalyes="Yes"){preapproval=true;}else if(preapprovalno="No"){preapproval=false;}else{preapproval=false;}
 	var attachedfile = document.getElementById("attachedfile").innerHTML;	
 	if(attachedfile != null){
 		var filebool = true;
-	}
+	}*/
 	
 	var obj = {todaysdate,eventtype,eventname,eventdescription,eventdate,eventtime,timemissed,eventlocation,
-	reimbursementcost,gradeformat,passinggrade,reimbursementamount,preapproval,filebool};
+	reimbursementcost,gradeformat,passinggrade,reimbursementamount/*,preapproval,filebool*/};
 	var sendData = json.stringify(obj);	
+	console.log(sendData);
+	return sendData;
 }
 
 function payload2(){
@@ -92,7 +97,10 @@ function payload2(){
 }
 
 function sendForm() {
-
+	
+	var formElements = document.querySelector("form");
+	console.log(formElements);
+	
 	let xhr = new XMLHttpRequest();
 
 	xhr.onreadystatechange = function() {
@@ -101,13 +109,12 @@ function sendForm() {
 			console.log(xhr.responseText);
 			let form = JSON.parse(xhr.responseText);
 			console.log(form);
-			payload();
 		}
 	}
 
 	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.json", true);
 	
-	xhr.send(sendData);
+	xhr.send(new FormData(formElements));
 }
 
 function sendAttachment(eventId, file){
@@ -127,5 +134,5 @@ function sendAttachment(eventId, file){
 
 window.onload = function() {
 	console.log("in onload");
-	document.getElementById("formsubmit").addEventListener("click", getForm, false);
+	document.getElementById("formsubmit").addEventListener("click", sendForm, false);
 }

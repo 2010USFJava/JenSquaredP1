@@ -1,7 +1,6 @@
 package com.trms.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +17,6 @@ public class EmployeeController {
 		Employee e = (Employee) req.getSession().getAttribute("currentuser");
 		res.setContentType("text/plain");
 		res.getWriter().write(new ObjectMapper().writeValueAsString(e));
-//		Cookie ck = new Cookie("name",e);
-//		res.addCookie(ck);
-//		System.out.println("Cookie: "+ck);
-//		res.setContentType("text/html");
-//		PrintWriter out = res.getWriter();
-//		out.print("Hello "+ck.getValue());
-//		out.close();
 	}
 
 }
