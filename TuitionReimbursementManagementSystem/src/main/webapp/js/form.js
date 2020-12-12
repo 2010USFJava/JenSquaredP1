@@ -98,13 +98,12 @@ function sendForm() {
 		}
 	}
 
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.master", true);
+	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.json", true);
 	
-
-	xhttp.send(sendData);
+	xhr.send(sendData);
 }
 
 window.onload = function() {
 	console.log("in onload");
-	document.getElementById("formsubmit").addEventListener("click", getForm, false);
+	document.getElementById("formsubmit").addEventListener("click", sendForm, false);
 }

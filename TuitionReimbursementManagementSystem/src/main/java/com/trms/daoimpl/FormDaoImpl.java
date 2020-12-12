@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.trms.beans.Employee;
 import com.trms.beans.Form;
 import com.trms.beans.Form.eventType;
 import com.trms.beans.Form.formStatus;
@@ -27,36 +28,44 @@ public class FormDaoImpl implements FormDao {
 	LocalDate localDate = localDateTime.toLocalDate();
 	LocalTime localTime = localDateTime.toLocalTime();
 	Date date = Date.valueOf(localDate);
-	Time time = Time.valueOf(localTime);
+//	Time time = Time.valueOf(localTime);
 
 	@Override
-	public void newForm(Form f) throws SQLException {
+	public int newForm(Form f) throws SQLException {
 		Connection conn = cf.getConnection();
-		String sql = "insert into form values(eid,DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setDate(1, date);
-		ps.setString(2, f.getEvent_type().toString());
-		ps.setString(3, f.getEvent_name());
-		ps.setString(4, f.getEvent_description());
-		ps.setDate(5, date);
-		ps.setObject(6, time);
-		ps.setDouble(7, f.getTime_missed());
-		ps.setString(8, f.getEvent_location());
-		ps.setDouble(9, f.getEvent_cost());
-		ps.setString(10, f.getGrade_format().toString());
-		ps.setDouble(11, f.getCurrent_grade());
-		ps.setDouble(12, f.getReimbursement_amount());
-		ps.setBoolean(13, f.isPre_approval());
-		ps.setBoolean(14, f.isUrgent());
-		ps.setString(15, f.getForm_status().toString());
-		ps.setBoolean(16, f.isFile_attachment());
-		ps.setBoolean(17, f.isSupervisor_approval());
-		ps.setBoolean(18, f.isDepartment_head_approval());
-		ps.setBoolean(19, f.isBenefit_co_approval());
-		ps.setString(20, f.getApproval_response());
-		ps.setString(21, f.getDenial_response());
-		ps.executeUpdate();
-		
+		String sql = "insert into form values(?,DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		ps.setInt(1, f.getEid());
+		ps.setDate(2, date);
+		ps.setString(3, f.getEvent_type().toString());
+		ps.setString(4, f.getEvent_name());
+		ps.setString(5, f.getEvent_description());
+		ps.setDate(6, date);
+		ps.setString(7, f.getEvent_time());
+		ps.setDouble(8, f.getTime_missed());
+		ps.setString(9, f.getEvent_location());
+		ps.setDouble(10, f.getEvent_cost());
+		ps.setString(11, f.getGrade_format().toString());
+		ps.setDouble(12, f.getCurrent_grade());
+		ps.setDouble(13, f.getReimbursement_amount());
+		ps.setBoolean(14, f.isPre_approval());
+		ps.setBoolean(15, f.isUrgent());
+		ps.setString(16, f.getForm_status().toString());
+		ps.setBoolean(17, f.isFile_attachment());
+		ps.setBoolean(18, f.isSupervisor_approval());
+		ps.setBoolean(19, f.isDepartment_head_approval());
+		ps.setBoolean(20, f.isBenefit_co_approval());
+		ps.setString(21, f.getApproval_response());
+		ps.setString(22, f.getDenial_response());
+		int event_id = 0;
+		int affectedrows = ps.executeUpdate();
+		if (affectedrows > 0) {
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				event_id = rs.getInt(2);
+			}
+		}
+		return event_id;
 	}
 
 	@Override
@@ -77,32 +86,20 @@ public class FormDaoImpl implements FormDao {
 	}
 
 	@Override
-	public void updateForm(Form f) throws SQLException {
+	public void updateForm(Form f, int event_id) throws SQLException {
 		Connection conn = cf.getConnection();
-		String sql = "update form values(eid,DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "update form set reimbursement_amount=? AND form_status=? AND supervisor_approval=? AND department_head_approval=? "
+				+ "AND benefit_co_approval=? AND approval_response=? AND denial_response=? where event_id=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
-//		ps.setObject(1, f.getSubmission_date().now());
-//		ps.setString(2, f.getEvent_type().toString());
-//		ps.setString(3, f.getEvent_name());
-//		ps.setString(4, f.getEvent_description());
-//		ps.setObject(5, f.getEvent_date().toString());
-//		ps.setObject(6, f.getEvent_time().toString());
-//		ps.setObject(7, f.getTime_missed().toString());
-//		ps.setString(8, f.getEvent_location());
-//		ps.setDouble(9, f.getEvent_cost());
-//		ps.setString(10, f.getGrade_format().toString());
-//		ps.setDouble(11, f.getCurrent_grade());
-//		ps.setDouble(12, f.getReimbursement_amount());
-//		ps.setBoolean(13, f.isPre_approval());
-//		ps.setBoolean(14, f.isUrgent());
-//		ps.setString(15, f.getForm_status().toString());
-//		ps.setBoolean(16, f.isFile_attachment());
-//		ps.setBoolean(17, f.isSupervisor_approval());
-//		ps.setBoolean(18, f.isDepartment_head_approval());
-//		ps.setBoolean(19, f.isBenefit_co_approval());
-//		ps.setString(20, f.getApproval_response());
-//		ps.setString(21, f.getDenial_response());
-//		ps.executeUpdate();
+		ps.setDouble(1, f.getReimbursement_amount());
+		ps.setString(2, f.getForm_status().toString());
+		ps.setBoolean(3, f.isSupervisor_approval());
+		ps.setBoolean(4, f.isDepartment_head_approval());
+		ps.setBoolean(5, f.isBenefit_co_approval());
+		ps.setString(6, f.getApproval_response());
+		ps.setString(7, f.getDenial_response());
+		ps.setInt(8, event_id);
+		ps.executeUpdate();
 	}
 
 	@Override
@@ -167,4 +164,27 @@ public class FormDaoImpl implements FormDao {
 		return cForms;
 
 	}
+
+//	@Override
+//	public Form updateReimbursement(Employee e, Form f, int eid) throws SQLException {
+//		Connection conn = cf.getConnection();
+//		double cost = f.getReimbursement_amount();
+//		double awarded = e.getAwarded_reimbursement();
+//		double available = e.getAvailable_reimbursement();
+//		double pending = e.getPending_reimbursement();
+//	
+//				
+//				String sql = "update form set awarded_reimbursement=? and pending_reimbursment=?"
+//						+ "and available_reimbursment=? where eid=?";
+//				PreparedStatement ps = conn.prepareStatement(sql);
+//				ps.setDouble(1, );
+//				ps.setDouble(2, );
+//				ps.setDouble(3, );
+//				ps.setInt(4, eid);
+//				ps.executeUpdate();
+//			}
+//			return f;
+//		}
+//		return null;
+//	}
 }

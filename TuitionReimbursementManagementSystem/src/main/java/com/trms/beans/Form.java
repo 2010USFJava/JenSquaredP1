@@ -1,5 +1,6 @@
 package com.trms.beans;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -28,7 +29,7 @@ public class Form {
 	private String event_name;
 	private String event_description;
 	private LocalDate event_date;
-	private LocalTime event_time;
+	private String event_time;
 	private double time_missed;
 	private String event_location;
 	private double event_cost;
@@ -78,7 +79,7 @@ public class Form {
 	}
 
 	public Form(int eid, int event_id, LocalDate submission_date, eventType event_type, String event_name,
-			String event_description, LocalDate event_date, LocalTime event_time, double time_missed,
+			String event_description, LocalDate event_date, String event_time, double time_missed,
 			String event_location, double event_cost, gradeFormat grade_format, double current_grade,
 			double reimbursement_amount, boolean pre_approval, boolean urgent, formStatus form_status,
 			boolean file_attachment, boolean supervisor_approval, boolean department_head_approval,
@@ -165,11 +166,11 @@ public class Form {
 		this.event_date = event_date;
 	}
 
-	public LocalTime getEvent_time() {
+	public String getEvent_time() {
 		return event_time;
 	}
 
-	public void setEvent_time(LocalTime event_time) {
+	public void setEvent_time(String event_time) {
 		this.event_time = event_time;
 	}
 

@@ -17,8 +17,16 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>MasterServlet</servlet-name>
-    <url-pattern>/master</url-pattern>
+    <url-pattern>*.master</url-pattern>
   </servlet-mapping>
-  
-  
+  <servlet>
+    <description></description>
+    <display-name>JSONMasterServlet</display-name>
+    <servlet-name>JSONMasterServlet</servlet-name>
+    <servlet-class>com.trms.servlet.JSONMasterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSONMasterServlet</servlet-name>
+    <url-pattern>*.json</url-pattern>
+  </servlet-mapping>
 </web-app>

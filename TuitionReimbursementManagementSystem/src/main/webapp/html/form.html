@@ -9,11 +9,11 @@
 		<nav>
 			<div class="jensquared-logo"></div>
 			<ul>
-				<li><a href="home.html">Home</a></li>
-				<li><a href="faq.html">FAQs</a></li>
-				<li><a href="form.html">Application</a>
-				<li><a href="finalsubmitmenu.html">Final Submit</a></li>
-				<li><a href="logout.html">Logout</a></li>
+				<li><a href="/TuitionReimbursementManagementSystem/home.master">Home</a></li>
+				<li><a href="/TuitionReimbursementManagementSystem/faq.master">FAQs</a></li>
+				<li><a href="/TuitionReimbursementManagementSystem/formpage.master">Application</a>
+				<li><a
+					href="/TuitionReimbursementManagementSystem/logout.master">Logout</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -22,12 +22,14 @@
 		<div id="main1">
 			<div class="panel-body">
 				<!-- Reimbursement Form -->
-				<form id="form" action="/TuitionReimbursementManagementSystem/form.master" method="POST">
+				<form id="form"
+					action="/TuitionReimbursementManagementSystem/form.json"
+					method="POST">
 					<!-- Employee Name -->
 					<div class="form-group">
 						<label for="empname">Enter Name:</label> <input type="text"
 							class="form-control" id="empnamename" name="empname"
-							placeholder="Enter Full Name" required="required"> 
+							placeholder="Enter Full Name" required="required">
 					</div>
 					<br>
 
@@ -35,7 +37,7 @@
 					<div class="form-group">
 						<label for="todaysdate">Today's Date:</label> <input type="date"
 							name="todaysdate" class="form-control" id="todaysdate"
-							placeholder="MM-DD-YYYY" required="required">
+							placeholder="yyyy-mm-dd" required="required">
 					</div>
 					<br>
 
@@ -44,13 +46,13 @@
 						<label for="eventtype">Event Type:</label> <select
 							name="eventtype" class="form-control" id="eventtype"
 							required="required">
-							<option value="200" selected="selected">University
+							<option value="UCOURSE" selected="selected">University
 								Courses</option>
-							<option value="201">Seminars</option>
-							<option value="202">Certification Preparation Classes</option>
-							<option value="203">Certification</option>
-							<option value="204">Technical Training</option>
-							<option value="205">Others</option>
+							<option value="SEMINAR">Seminars</option>
+							<option value="CERTPREP">Certification Preparation Classes</option>
+							<option value="CERT">Certification</option>
+							<option value="TECHTRAINING">Technical Training</option>
+							<option value="OTHER">Others</option>
 						</select>
 					</div>
 					<br>
@@ -208,9 +210,9 @@
 					<!-- Reimbursement Cost -->
 					<div class="form-group">
 						<label for="reimbursementcost">Amount of Event:</label> <input
-							type="number" class="form-control" id="reimbursementcost" name="reimbursementcost"
-							step="0.01" max="1000" placeholder="Enter amount "
-							required="required">
+							type="number" class="form-control" id="reimbursementcost"
+							name="reimbursementcost" step="0.01" max="1000"
+							placeholder="Enter amount " required="required">
 					</div>
 					<br>
 
@@ -219,8 +221,8 @@
 						<label for="gradeformat">Grade Format:</label> <select
 							name="gradeformat" class="form-control" id="gradeformat"
 							required="required">
-							<option value="300">Final Grade</option>
-							<option value="301">Presentation</option>
+							<option value="GRADE">Final Grade</option>
+							<option value="PRESENTATION">Presentation</option>
 						</select>
 					</div>
 					<br>
@@ -247,9 +249,10 @@
 
 					<!-- Pre-Approval -->
 					<div class="form-group">
-						<label for="preapproval">Did you receive pre-approval?</label> <input name="preapproval" id="preapproval"
-							type="checkbox" value="Yes">Yes
-							<input name="preapproval" id="preapproval" type="checkbox" value="No">No
+						<label for="preapproval">Did you receive pre-approval?</label> <input
+							name="preapproval" id="preapproval" type="checkbox" value="Yes">Yes
+						<input name="preapproval" id="preapproval" type="checkbox"
+							value="No">No
 					</div>
 					<br>
 
@@ -272,7 +275,7 @@
 					<!-- Submit -->
 					<div>
 						<button class="btn btn-success btn-block" id="formsubmit"
-						 onclick="sendData()">Submit</button>
+							onclick="sendForm()">Submit</button>
 					</div>
 					<br>
 				</form>
@@ -280,7 +283,7 @@
 			<div class="panel-footer"></div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../js/form.js"></script>
+	<script type="text/javascript" src="./js/form.js"></script>
 
 
 

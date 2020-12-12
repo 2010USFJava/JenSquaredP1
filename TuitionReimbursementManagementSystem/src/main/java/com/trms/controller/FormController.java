@@ -2,9 +2,11 @@ package com.trms.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +23,9 @@ import com.trms.daoimpl.FormDaoImpl;
 
 public class FormController {
 	static FormDao fdao = new FormDaoImpl();
+	static DateTimeFormatter df = DateTimeFormatter.ISO_LOCAL_TIME;
+	String eventtime1 = "hh:mm";
+	
 
 	public static String newForm(HttpServletRequest req) throws SQLException, JsonProcessingException {
 		if (!req.getMethod().equals("POST")) {
@@ -36,16 +41,18 @@ public class FormController {
 		String eventname = req.getParameter("eventname");
 		String desc = req.getParameter("eventdescription");
 		LocalDate eventdate = LocalDate.parse(req.getParameter("eventdate"));
-		LocalTime eventtime = LocalTime.parse(req.getParameter("eventtime"));
+//		String etime = om.writeValueAsString(req.getParameter("eventtime"));
+		String eventtime = req.getParameter("eventtime");
+//		LocalTime eventtime = LocalTime.parse(req.getParameter("eventtime"));
 		double tmissed = Double.valueOf(req.getParameter("timemissed"));
 		String eloc = req.getParameter("eventlocation");
-		double rcost = Double.valueOf(req.getParameter("reimbursmentcost"));
+		double rcost = Double.valueOf(req.getParameter("reimbursementcost"));
 		
 		String gfor = om.writeValueAsString(req.getParameter("gradeformat"));
 		gradeFormat gformat = om.readValue(gfor, gradeFormat.class); 
 		
 		double pgrad = Double.valueOf(req.getParameter("passinggrade"));
-		double ramou = Double.valueOf(req.getParameter("reimbursmentamount"));
+		double ramou = Double.valueOf(req.getParameter("reimbursementamount"));
 		Boolean preapp = Boolean.valueOf(req.getParameter("preapproval"));
 		Period intervalPeriod = Period.between(submissionDate, eventdate);
 		Boolean urgent =false;
