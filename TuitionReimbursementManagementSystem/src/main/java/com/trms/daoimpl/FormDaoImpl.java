@@ -16,8 +16,10 @@ import com.trms.beans.Form;
 import com.trms.beans.Form.eventType;
 import com.trms.beans.Form.formStatus;
 import com.trms.beans.Form.gradeFormat;
+import com.trms.dao.EmployeeDao;
 import com.trms.dao.FormDao;
 import com.trms.util.ConnFactory;
+import com.trms.util.LogThis;
 
 public class FormDaoImpl implements FormDao {
 	public static ConnFactory cf = ConnFactory.getInstance();
@@ -61,13 +63,14 @@ public class FormDaoImpl implements FormDao {
 				event_id = rs.getInt(2);
 			}
 		}
+		LogThis.LogIt("info", event_id + ",has been submitted");
 		return event_id;
 	}
 
 	@Override
 	public Form getFormByEventid(int event_id) throws SQLException {
 		Connection conn = cf.getConnection();
-		String sql = "select * from form where eventid=?";
+		String sql = "select * from form where \"event_id\"=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, event_id);
 		ResultSet rs = ps.executeQuery();
@@ -100,56 +103,75 @@ public class FormDaoImpl implements FormDao {
 		ps.setString(7, f.getDenial_response());
 		ps.setInt(8, event_id);
 		ps.executeUpdate();
+		LogThis.LogIt("info", "Form "+f.getEvent_id()+" has been updated.");
 	}
 
 	@Override
 	public List<Form> getUrgentPendingForms(int eid) throws SQLException {
-		System.out.println("in fdao method");
+		System.out.println("in fdao method get urgent pending");
 		List<Form> penForms = new ArrayList<Form>();
 		Connection conn = cf.getConnection();
-		String sql = "select event_id, event_name, reimbursement_amount, form_status from form where urgent=true and form_status='pending' and eid=?";
+		String sql = "select * from form where \"urgent\"=true and \"form_status\"='PENDING' and \"eid\"=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, eid);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
 		while (rs.next()) {
-			f = new Form(rs.getInt(1), rs.getString(2),rs.getDouble(3),formStatus.valueOf(rs.getString(4)));
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getString(8),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			penForms.add(f);
 		}
+		System.out.println("Penforms: "+penForms);
 		return penForms;
 	}
 
 	@Override
 	public List<Form> getNonUrgentPendingForms(int eid) throws SQLException {
-		System.out.println("in fdao method");
+		System.out.println("in fdao method get nonurgent pending");
 		List<Form> nonUForms = new ArrayList<Form>();
 		Connection conn = cf.getConnection();
-		String sql = "select event_id, event_name, reimbursement_amount, form_status from form where urgent=false and form_status='pending' and eid=?";
+		String sql = "select * from form where \"urgent\"=false and \"form_status\"='PENDING' and \"eid\"=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, eid);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
 		while (rs.next()) {
-			f = new Form(rs.getInt(1), rs.getString(2),rs.getDouble(3),formStatus.valueOf(rs.getString(4)));
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getString(8),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			nonUForms.add(f);
 		}
+		System.out.println("nonUForms: "+nonUForms);
 		return nonUForms;
 	}
 
 	@Override
 	public List<Form> getClosedForms(int eid) throws SQLException {
-		System.out.println("in fdao method");
+		System.out.println("in fdao method get closed forms");
 		List<Form> cForms = new ArrayList<Form>();
 		Connection conn = cf.getConnection();
-		String sql = "select event_id, event_name, reimbursement_amount, form_status from form where form_status='approved' OR form_status='denied' and eid=?";
+		String sql = "select * from form where \"form_status\"='APPROVED' OR \"form_status\"='DENIED' and eid=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, eid);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
 		while (rs.next()) {
-			f = new Form(rs.getInt(1), rs.getString(2),rs.getDouble(3),formStatus.valueOf(rs.getString(4)));
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getString(8),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			cForms.add(f);
 		}
+		System.out.println("cForms: "+cForms);
 		return cForms;
 	}
 	
@@ -158,7 +180,7 @@ public class FormDaoImpl implements FormDao {
 		System.out.println("in fdao method");
 		List<Integer> eList = new ArrayList<Integer>();
 		Connection conn = cf.getConnection();
-		String sql = "select eid from employee e inner join employee m on m.eid = e.supervisor_id where m.eid=?";
+		String sql = "select e.\"eid\" from employee e inner join employee m on m.\"eid\" = e.\"supervisor_id\" where m.\"eid\"=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, supeid);
 		ResultSet rs = ps.executeQuery();
@@ -175,7 +197,7 @@ public class FormDaoImpl implements FormDao {
 		System.out.println("in fdao method");
 		List<Integer> eList = new ArrayList<Integer>();
 		Connection conn = cf.getConnection();
-		String sql = "select eid from employee e inner join employee m on m.eid = e.department_head_id where m.eid=?";
+		String sql = "select e.\"eid\" from employee e inner join employee m on m.\"eid\" = e.\"department_head_id\" where m.\"eid\"=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, dheid);
 		ResultSet rs = ps.executeQuery();
@@ -192,12 +214,17 @@ public class FormDaoImpl implements FormDao {
 		System.out.println("in fdao method");
 		List<Form> penForms = new ArrayList<Form>();
 		Connection conn = cf.getConnection();
-		String sql = "select event_id, event_name, reimbursement_amount, form_status from form where urgent=true and form_status='pending'";
+		String sql = "select * from form where \"urgent\"=true and \"form_status\"='PENDING'";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
 		while (rs.next()) {
-			f = new Form(rs.getInt(1), rs.getString(2),rs.getDouble(3),formStatus.valueOf(rs.getString(4)));
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getString(8),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			penForms.add(f);
 		}
 		return penForms;
@@ -208,12 +235,17 @@ public class FormDaoImpl implements FormDao {
 		System.out.println("in fdao method");
 		List<Form> nonUForms = new ArrayList<Form>();
 		Connection conn = cf.getConnection();
-		String sql = "select event_id, event_name, reimbursement_amount, form_status from form where urgent=false and form_status='pending'";
+		String sql = "select * from form where \"urgent\"=false and \"form_status\"='PENDING'";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
 		while (rs.next()) {
-			f = new Form(rs.getInt(1), rs.getString(2),rs.getDouble(3),formStatus.valueOf(rs.getString(4)));
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getString(8),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			nonUForms.add(f);
 		}
 		return nonUForms;
@@ -224,26 +256,33 @@ public class FormDaoImpl implements FormDao {
 		System.out.println("in fdao method");
 		List<Form> cForms = new ArrayList<Form>();
 		Connection conn = cf.getConnection();
-		String sql = "select event_id, event_name, reimbursement_amount, form_status from form where form_status='approved' OR form_status='denied'";
+		String sql = "select * from form where \"form_status\"='APPROVED' OR \"form_status\"='DENIED'";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
 		while (rs.next()) {
-			f = new Form(rs.getInt(1), rs.getString(2),rs.getDouble(3),formStatus.valueOf(rs.getString(4)));
+			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
+					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getString(8),
+					rs.getDouble(9), rs.getString(10), rs.getDouble(11), gradeFormat.valueOf(rs.getString(12)),
+					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
+					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
+					rs.getBoolean(21), rs.getString(22), rs.getString(23));
 			cForms.add(f);
 		}
 		return cForms;
 	}
 	
+	@SuppressWarnings("null")
 	@Override
-	public Form getFormByEventId(int eid) throws SQLException{
+	public List<Form> getFormByEId(int eid) throws SQLException{
 		System.out.println("in fdao method");
 		Connection conn = cf.getConnection();
-		String sql = "select * from form where event_id=?";
+		String sql = "select * from form where \"event_id\"=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, eid);
 		ResultSet rs = ps.executeQuery();
 		Form f = null;
+		List<Form> fList = null;
 		while(rs.next()) {
 			f = new Form(rs.getInt(1), rs.getInt(2), rs.getDate(3).toLocalDate(), eventType.valueOf(rs.getString(4)),
 					rs.getString(5), rs.getString(6), rs.getDate(7).toLocalDate(), rs.getString(8),
@@ -251,7 +290,8 @@ public class FormDaoImpl implements FormDao {
 					rs.getDouble(13), rs.getDouble(14), rs.getBoolean(15), rs.getBoolean(16),
 					formStatus.valueOf(rs.getString(17)), rs.getBoolean(18), rs.getBoolean(19), rs.getBoolean(20),
 					rs.getBoolean(21), rs.getString(22), rs.getString(23));
+			fList.add(f);
 		}
-		return f;
+		return fList;
 	}
 }

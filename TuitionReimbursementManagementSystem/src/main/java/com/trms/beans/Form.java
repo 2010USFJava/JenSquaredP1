@@ -1,13 +1,24 @@
 package com.trms.beans;
 
-import java.sql.Time;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
-public class Form {
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+public class Form implements Serializable{
+
+	private static final long serialVersionUID = 1081947608745293929L;
 	
 	private int eid;
 	private int event_id;
+	
+	@JsonDeserialize(using = LocalDateDeserializer.class)  
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate submission_date;
 	public enum eventType{
 		UCOURSE("UCOURSE"),
@@ -28,6 +39,10 @@ public class Form {
 	public eventType event_type;
 	private String event_name;
 	private String event_description;
+	
+	@JsonDeserialize(using = LocalDateDeserializer.class)  
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate event_date;
 	private String event_time;
 	private double time_missed;

@@ -1,3 +1,1 @@
-/**
- * 
- */
+localstorage.getItem("option");

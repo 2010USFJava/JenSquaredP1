@@ -14,7 +14,7 @@ public class AttachmentsDaoImpl implements AttachmentsDao{
 	}
 
 	@Override
-	public Attachments getFilesByEId() throws SQLException {
+	public Attachments getFilesByEventId() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

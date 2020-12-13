@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.trms.beans.Employee;
+import com.trms.controller.AttachmentsController;
 import com.trms.controller.EmployeeController;
 import com.trms.controller.FAQsController;
 import com.trms.controller.FinalSubmitController;
@@ -31,12 +32,16 @@ public class RequestHelper {
 			return FAQsController.faqs(req);
 		case "/TuitionReimbursementManagementSystem/formpage.master":
 			return FormPageController.formPage(req);
+		case "/TuitionReimbursementManagementSystem/form.master":
+			return FormController.newForm(req);
 		case "/TuitionReimbursementManagementSystem/finalsubmit.master":
 			if(e.isIs_benefit_co()||e.isIs_department_head()||e.isIs_supervisor()) {
 				return FinalSubmitController.approveordenypage(req);
 			}else {
 				return FinalSubmitController.submitpage(req);
 			}
+		case "/TuitionReimbursementManagementSystem/attachments.json":
+			return AttachmentsController.newAttachment(req);
 		case "/TuitionReimbursementManagementSystem/logout.master":
 			return LogoutController.logout(req, res);
 		default:

@@ -18,5 +18,5 @@ public interface FormDao {
 	public List<Form> getAllUrgentPendingForms() throws SQLException;
 	public List<Form> getAllNonUrgentPendingForms() throws SQLException;
 	public List<Form> getAllClosedForms() throws SQLException;
-	public Form getFormByEventId(int eid) throws SQLException;
+	public List<Form> getFormByEId(int eid) throws SQLException;
 }

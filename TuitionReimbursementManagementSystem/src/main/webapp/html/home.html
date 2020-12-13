@@ -18,7 +18,6 @@
 			</ul>
 		</nav>
 	</div>
-
 	<div id="main">
 		<h1 class="welcome">Welcome to JenSquared's Tuition Reimbursement
 			Portal</h1>
@@ -27,33 +26,50 @@
 		</h2>
 		<br> <br>
 		<h3>Reimbursement Amount Available:</h3>
-		<p>$<span id=amtavailable></span></p>
+		<p>
+			$<span id=amtavailable></span>
+		</p>
 		<div class="wrapper"></div>
 
 		<div class="wrapper">
 			<h2 class="open">Open Applications</h2>
 			<h3 class="table">Urgent</h3>
 
-			<table id=urgentTable>
-
-			</table>
+			<table id=urgentTable></table>
+			<form>
+				<label for="urgentOption">Please select which application
+					you would like to review:</label> <select name="urgentOption"
+					id="urgentOption"></select>
+				<button class="btn btn-success btn-block" id="urgentFormSelect"
+					onclick="sendOption(optionValue)">Select</button>
+			</form>
 
 			<h3 class="table1">Non-Urgent</h3>
 
-			<table id="nonurgentTable">
-
-			</table>
-
+			<table id="nonurgentTable"></table>
+			<form>
+				<label for="urgentOption">Please select which application
+					you would like to review:</label> <select name="nonurgentOption"
+					id="nonurgentOption"></select>
+				<button class="btn btn-success btn-block" id="nonurgentFormSelect"
+					onclick="sendOption(optionValue)">Select</button>
+			</form>
 		</div>
 
 		<div class="wrapper">
 			<h2 class="closed">Closed Applications</h2>
 
-			<table id="closedTable">
-
-			</table>
+			<table id="closedTable"></table>
+			<form>
+				<label for="closedOption">Please select which application
+					you would like to review:</label> <select name="closedOption"
+					id="closedtOption"></select>
+				<button class="btn btn-success btn-block" id="closedFormSelect"
+					onclick="sendOption(optionValue)">Select</button>
+			</form>
 		</div>
 	</div>
 	<script type="text/javascript" src="./js/home.js"></script>
+
 </body>
 </html>

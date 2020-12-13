@@ -8,10 +8,10 @@ import com.trms.dao.EmployeeDao;
 import com.trms.daoimpl.EmployeeDaoImpl;
 
 public class TRMSService {
-	
+
 	EmployeeDao edao = new EmployeeDaoImpl();
-	
-	//login verify method--postgres
+
+	// login verify method--postgres
 	public boolean loginVerify(String email, String password) {
 		List<Employee> eList = null;
 		try {
@@ -21,25 +21,23 @@ public class TRMSService {
 		}
 		boolean verify = false;
 		System.out.println("right before enhanced for loop");
-		for(Employee e:eList) {
+		for(int i=0;i<eList.size();i++) {
+			Employee e=eList.get(i);
 			if(e.getEmail().equals(email)&&e.getPassword().equals(password)) {
 				verify = true;
 				System.out.println(verify);
+				return verify;
 			}else {
-				System.out.println("enhanced for loop not working");
-				System.out.println(e.getEmail());
-				System.out.println(email);
-				System.out.println(e.getPassword());
-				System.out.println(password);
+				i++;
 			}
 		}
+		System.out.println("login verify failed");
 		return verify;
 	}
-	
-	
-	//get user name on login
+
+	// get user name on login
 	public Employee loginGetEmployee(String email, String password) {
-		if(loginVerify(email,password)) {
+		if (loginVerify(email, password)) {
 			try {
 				return edao.getEmployeeByEmail(email);
 			} catch (SQLException e) {
@@ -48,14 +46,14 @@ public class TRMSService {
 		}
 		return null;
 	}
-	
-	//other security methods?
+
+	// other security methods?
 	public String wrongCreds() {
 		return "html/unsuccessfullogin.html";
 	}
-	
+
 	public TRMSService() {
-		
+
 	}
 
 }

@@ -36,33 +36,6 @@ function payload(){
 	document.getElementById('eventtype').addEventListener('change', alert);
 	document.getElementById("todaysdate").value = today;
 
-var reimbursementamount = null;
-	switch (event) {
-		case "UCOURSE":
-			reimbursementamount.value = parseFloat((amount * .80)).toFixed(2);
-			;
-			break;
-		case "SEMINAR":
-			reimbursementamount.value = parseFloat((amount * .60)).toFixed(2);
-			break;
-		case "CERTPREP":
-			reimbursementamount.value = parseFloat((amount * .75)).toFixed(2);
-			break;
-		case "CERT":
-			reimbursementamount.value = parseFloat(amount).toFixed(2);
-			break;
-		case "TECHTRAINING":
-			reimbursementamount.value = parseFloat((amount * .90)).toFixed(2);
-			break;
-		case "OTHER":
-			reimbursementamount.value = parseFloat((amount * .30)).toFixed(2);
-			break;
-		default:
-			console.log("Error caught calculating reimbursement amount in form.js");
-	}
-
-
-
 	var todaysdate = document.getElementById("todaysdate").innerHTML;	
 	var eventtype = document.getElementById("eventtype").innerHTML;
 	var eventname = document.getElementById("eventname").innerHTML;	
@@ -71,14 +44,13 @@ var reimbursementamount = null;
 	var eventtime = document.getElementById("time").innerHTML;	
 	var timemissed = document.getElementById("timemissed").innerHTML;
 	var eventlocation = document.getElementById("eventlocation").innerHTML;
-	var reimbursementcost = document.getElementById("reimbursementcost").innerHTML;	
 	var gradeformat = document.getElementById("gradeformat").innerHTML;		
 	var passinggrade = document.getElementById("passinggrade").innerHTML;
 	var preapproval = document.getElementById("preapproval").innerHTML;	
 	var attachedfile = document.getElementById("attachedfile").innerHTML;	
 	
 	var obj = {todaysdate,eventtype,eventname,eventdescription,eventdate,eventtime,timemissed,eventlocation,
-	reimbursementcost,gradeformat,passinggrade,reimbursementamount,preapproval,attachedfile};
+	reimbursementcost,gradeformat,passinggrade,preapproval,attachedfile};
 	var sendData = json.stringify(obj);	
 }
 
@@ -96,7 +68,7 @@ function sendForm() {
 		}
 	}
 
-	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.json", true);
+	xhr.open("POST", "http://localhost:8080/TuitionReimbursementManagemenetSystem/form.master", true);
 	
 	xhr.send(sendData);
 }
