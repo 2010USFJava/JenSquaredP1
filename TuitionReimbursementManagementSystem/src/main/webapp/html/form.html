@@ -23,13 +23,11 @@
 			<div class="panel-body">
 				<!-- Reimbursement Form -->
 				<form id="form"
-					method="POST"
-					action="/TuitionReimbursementManagementSystem/form.json">
+					action="/TuitionReimbursementManagementSystem/form.json"
+					method="POST">
 					<!-- Employee Name -->
 					<div class="form-group">
-						<label for="empname">Enter Name:</label> <input type="text"
-							class="form-control" id="empnamename" name="empname"
-							placeholder="Enter Full Name" required="required">
+						<label for="empname">Enter Name:</label> <span id="empname"></span>
 					</div>
 					<br>
 
@@ -37,7 +35,7 @@
 					<div class="form-group">
 						<label for="todaysdate">Today's Date:</label> <input type="date"
 							name="todaysdate" class="form-control" id="todaysdate"
-							placeholder="MM-DD-YYYY" required="required">
+							placeholder="yyyy-mm-dd" required="required">
 					</div>
 					<br>
 
@@ -46,13 +44,13 @@
 						<label for="eventtype">Event Type:</label> <select
 							name="eventtype" class="form-control" id="eventtype"
 							required="required">
-							<option value="200" selected="selected">University
+							<option value="UCOURSE" selected="selected">University
 								Courses</option>
-							<option value="201">Seminars</option>
-							<option value="202">Certification Preparation Classes</option>
-							<option value="203">Certification</option>
-							<option value="204">Technical Training</option>
-							<option value="205">Others</option>
+							<option value="SEMINAR">Seminars</option>
+							<option value="CERTPREP">Certification Preparation Classes</option>
+							<option value="CERT">Certification</option>
+							<option value="TECHTRAINING">Technical Training</option>
+							<option value="OTHER">Others</option>
 						</select>
 					</div>
 					<br>
@@ -82,13 +80,13 @@
 						<div class="form-group">
 							<label for="eventdate">Event Date:</label> <input type="date"
 								name="eventdate" class="form-control" id="eventdate"
-								placeholder="MM-DD-YYYY" required="required">
+								placeholder="YYYY-MM-DD" required="required">
 						</div>
 						<br>
 
 						<!-- Event Time -->
 						<div class="form-group">
-							<label for="eventtime">Event Time:</label> <select name="time"
+							<label for="eventtime">Event Time:</label> <select name="eventtime"
 								id="time">
 								<option value="5:00 AM">5:00 AM</option>
 								<option value="5:15 AM">5:15 AM</option>
@@ -192,16 +190,16 @@
 
 					<!-- Time Missed -->
 					<div class="form-group">
-						<label for="timemissed">Amount of Time Missed:</label> <input
+						<label for="timemissed">Amount of Work Time Missed:</label> <input
 							type="number" name="timemissed" class="form-control"
-							id="timemissed" placeholder="HR:MM" required="required">
+							id="timemissed" placeholder="HR.hr" step="0.01" required="required">
 					</div>
 					<br>
 
 					<!-- Event Location -->
 					<div class="form-group">
 						<label for="eventlocation">Event Location:</label>
-						<textarea rows="5" cols="80" class="form-control"
+						<textarea rows="1" cols="80" class="form-control"
 							id="eventlocation" name="eventlocation"
 							placeholder="Enter location of event " required="required"></textarea>
 					</div>
@@ -209,10 +207,11 @@
 
 					<!-- Reimbursement Cost -->
 					<div class="form-group">
-						<label for="reimbursementcost">Amount of Event:</label> <input
+						<label for="reimbursementcost">Total Tuition Cost of Event: $</label> <input
 							type="number" class="form-control" id="reimbursementcost"
 							name="reimbursementcost" step="0.01" max="1000"
 							placeholder="Enter amount " required="required">
+							<h6>Please do not include extra fees such as parking.</h6>
 					</div>
 					<br>
 
@@ -221,8 +220,8 @@
 						<label for="gradeformat">Grade Format:</label> <select
 							name="gradeformat" class="form-control" id="gradeformat"
 							required="required">
-							<option value="300">Final Grade</option>
-							<option value="301">Presentation</option>
+							<option value="GRADE">Final Grade</option>
+							<option value="PRESENTATION">Presentation</option>
 						</select>
 					</div>
 					<br>
@@ -232,46 +231,35 @@
 						<label for="passinggrade">If grade, passing grade for
 							course:</label> <input type="text" class="form-control" id="passinggrade"
 							name="passinggrade"
-							placeholder="Enter percentage of passing grade"
-							required="required">
+							placeholder="Enter passing grade"
+							required="required">%
 						<h6>Default cutoff is 80%</h6>
 					</div>
 					<br>
 
-					<!-- Reimbursement Amount -->
-					<div class="form-group">
-						<label for="reimbursementamount">Projected Reimbursement
-							Amount: </label> <input type="number" class="form-control"
-							name="reimbursementamount" id="reimbursementamount" max="1000"
-							disabled="disabled">
-					</div>
-					<br>
-
 					<!-- Pre-Approval -->
-<!-- 					<div class="form-group">
+					<div class="form-group">
 						<label for="preapproval">Did you receive pre-approval?</label> <input
-							name="preapprovalyes" id="preapprovalyes" type="checkbox" value="Yes">Yes
-						<input name="preapprovalno" id="preapprovalno" type="checkbox"
+							name="preapproval" id="preapproval" type="checkbox" value="Yes">Yes
+						<input name="preapproval" id="preapproval" type="checkbox"
 							value="No">No
 					</div>
 					<br>
 
-					<!-- Pre-Approval File -->
-<!-- 					<div>
-						<label for="attachedfileapproval">If yes, please submit email with
-							pre-approval:</label> <input type="file" id="attachedfileapproval"
-							name="attachedfileapproval"
+					<!-- Pre-Approval Files -->
+					<div>
+						<label for="attachedfile">If yes, please submit email with
+							pre-approval:</label> <input type="file" id="attachedfile"
+							name="attachedfile"
 							accept=".pdf, .png, .jpeg, .jpg, .txt, .doc, .msg" />
 					</div>
 					<br>
 
-					<!-- Optional File Attachments -->
-<!-- 					<div>
-						<label for="optattachedfile">Optional Event Related Files:</label>
-							<input
-								type="file" id="optattachedfiles" name="optattachedfiles"
-								accept=".pdf, .png, .jpeg, .jpg, .txt, .doc, .msg" 
-								/>
+					<!-- File Attachment -->
+					<div>
+						<label for="attachedfile">Optional Event Related File:</label> <input
+							type="file" id="attachedfile" name="attachedfile"
+							accept=".pdf, .png, .jpeg, .jpg, .txt, .doc, .msg" />
 					</div>
 					<br>
 					<!-- Submit -->

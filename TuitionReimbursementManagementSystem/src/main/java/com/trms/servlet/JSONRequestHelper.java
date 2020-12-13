@@ -60,6 +60,12 @@ public class JSONRequestHelper {
 				FormController.getClosed(e.getEid());
 			}
 			break;
+		case "/TuitionReimbursementManagementSystem/approved.json":
+			EmployeeController.updateReimbursement(req, true);
+			break;
+		case "/TuitionReimbursementManagementSystem/denied.json":
+			EmployeeController.updateReimbursement(req, false);
+			break;
 		default:
 			System.out.println("Everything went wrong JSON.");
 		}

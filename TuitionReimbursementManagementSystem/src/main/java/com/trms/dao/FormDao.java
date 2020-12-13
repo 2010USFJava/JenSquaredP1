@@ -7,9 +7,9 @@ import com.trms.beans.Form;
 
 public interface FormDao {
 	
-	public void newForm(Form f) throws SQLException;
-	public int getFormByEid(int eid) throws SQLException;
-	public void updateForm(Form f) throws SQLException;
+	public int newForm(Form f) throws SQLException;
+	public Form getFormByEventid(int event_id) throws SQLException;
+	public void updateForm(Form f, int event_id) throws SQLException;
 	List<Form> getUrgentPendingForms(int eid) throws SQLException;
 	List<Form> getNonUrgentPendingForms(int eid) throws SQLException;
 	List<Form> getClosedForms(int eid) throws SQLException;

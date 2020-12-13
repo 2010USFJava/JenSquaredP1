@@ -37,7 +37,7 @@ public class FormController {
 			String eventname = req.getParameter("eventname");
 			String desc = req.getParameter("eventdescription");
 			LocalDate eventdate = LocalDate.parse(req.getParameter("eventdate"));
-			LocalTime eventtime = LocalTime.parse(req.getParameter("eventtime"));
+			String eventtime = req.getParameter("eventtime");
 			double tmissed = Double.valueOf(req.getParameter("timemissed"));
 			String eloc = req.getParameter("eventlocation");
 			double rcost = Double.valueOf(req.getParameter("reimbursmentcost"));
@@ -75,6 +75,7 @@ public class FormController {
 	}
 
 	public static void getUrgentPending(int eid) {
+		System.out.println("In getUrgentPending");
 		try {
 			fdao.getUrgentPendingForms(eid);
 		} catch (SQLException e) {
@@ -83,6 +84,7 @@ public class FormController {
 	}
 
 	public static void getNonUrgentPending(int eid) {
+		System.out.println("In getNonUrgentPending");
 		try {
 			fdao.getNonUrgentPendingForms(eid);
 		} catch (SQLException e) {
@@ -91,6 +93,7 @@ public class FormController {
 	}
 
 	public static void getClosed(int eid) {
+		System.out.println("In getClosed");
 		try {
 			fdao.getClosedForms(eid);
 		} catch (SQLException e) {
@@ -172,6 +175,7 @@ public class FormController {
 		return fullList;
 	}
 	
+	@SuppressWarnings("null")
 	public static List<Form> getClosedDH(int dhid) throws SQLException{
 		List<Integer> eList = null;
 		eList = fdao.getEidFromDH(dhid);
@@ -187,18 +191,21 @@ public class FormController {
 	}
 	
 	public static List<Form> getAllUrg() throws SQLException{
+		System.out.println("In getAllUrg");
 		List<Form> fList = null;
 		fList = fdao.getAllUrgentPendingForms();
 		return fList;
 	}
 	
 	public static List<Form> getAllNonUrg() throws SQLException{
+		System.out.println("In getAllNonUrg");
 		List<Form> fList = null;
 		fList = fdao.getAllNonUrgentPendingForms();
 		return fList;
 	}
 	
 	public static List<Form> getAllClosed() throws SQLException{
+		System.out.println("In getAllClosed");
 		List<Form> fList = null;
 		fList = fdao.getAllClosedForms();
 		return fList;
