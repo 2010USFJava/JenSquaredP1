@@ -249,5 +249,9 @@ public class FormController {
 		res.getWriter().write(new ObjectMapper().writeValueAsString(f));
 		return f;
 	}
+	
+	public static void updateFormStatus(HttpServletRequest req, HttpServletResponse res, int fid) {
+		
+	}
 
 }

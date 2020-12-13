@@ -40,7 +40,7 @@ public class RequestHelper {
 			}else {
 				return FinalSubmitController.submitpage(req);
 			}
-		case "/TuitionReimbursementManagementSystem/attachments.json":
+		case "/TuitionReimbursementManagementSystem/attachments.master":
 			return AttachmentsController.newAttachment(req);
 		case "/TuitionReimbursementManagementSystem/logout.master":
 			return LogoutController.logout(req, res);

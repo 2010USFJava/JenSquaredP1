@@ -152,6 +152,21 @@ function displayOptions(reqList, eleid) {  //pass in already parsed json
 
 function sendOption(optionValue) {
 	if (typeof (Storage) !== "undefined") {
+		console.log("setting local storage");
 		localStorage.setItem("formOption", optionValue);
 	}
+	let xhropt = new XMLHttpRequest();
+
+	xhropt.onreadystatechange = function() {
+		console.log("in ORSC");
+		if (xhropt.readyState == 4 && xhropt.status == 200) {
+			console.log("xhropt.responseText: " + xhropt.responseText);
+			let final = JSON.parse(xhropt.responseText);
+			console.log(final);
+		}
+	}
+
+	xhropt.open("GET", "http://localhost:8080/TuitionReimbursementManagementSystem/finalsubmit.master", true);
+	xhropt.send();
+	
 }
