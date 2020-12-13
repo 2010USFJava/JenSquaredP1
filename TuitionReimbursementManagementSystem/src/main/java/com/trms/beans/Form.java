@@ -4,6 +4,8 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.trms.util.LogThis;
+
 public class Form {
 	
 	private int eid;
@@ -49,7 +51,7 @@ public class Form {
 	public gradeFormat grade_format;
 	
 	private double current_grade;
-//	private double reimbursement_amount;
+	private double reimbursement_amount;
 	private boolean pre_approval;
 	private boolean urgent;
 	public enum formStatus{
@@ -77,11 +79,19 @@ public class Form {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Form(int event_id, String event_name, double reimbursement_amount, formStatus form_status) {
+		super();
+		this.event_id=event_id;
+		this.event_name=event_name;
+		this.reimbursement_amount=reimbursement_amount;
+		this.form_status=form_status;
+	}
 
 	public Form(int eid, int event_id, LocalDate submission_date, eventType event_type, String event_name,
 			String event_description, LocalDate event_date, String event_time, double time_missed,
 			String event_location, double event_cost, gradeFormat grade_format, double current_grade,
-			boolean pre_approval, boolean urgent, formStatus form_status,
+			double reimbursement_amount, boolean pre_approval, boolean urgent, formStatus form_status,
 			boolean file_attachment, boolean supervisor_approval, boolean department_head_approval,
 			boolean benefit_co_approval, String approval_response, String denial_response) {
 		super();
@@ -98,7 +108,7 @@ public class Form {
 		this.event_cost = event_cost;
 		this.grade_format = grade_format;
 		this.current_grade = current_grade;
-//		this.reimbursement_amount = reimbursement_amount;
+		this.reimbursement_amount = reimbursement_amount;
 		this.pre_approval = pre_approval;
 		this.urgent = urgent;
 		this.form_status = form_status;
@@ -214,13 +224,13 @@ public class Form {
 		this.current_grade = current_grade;
 	}
 
-//	public double getReimbursement_amount() {
-//		return reimbursement_amount;
-//	}
-//
-//	public void setReimbursement_amount(double reimbursement_amount) {
-//		this.reimbursement_amount = reimbursement_amount;
-//	}
+	public double getReimbursement_amount() {
+		return reimbursement_amount;
+	}
+
+	public void setReimbursement_amount(double reimbursement_amount) {
+		this.reimbursement_amount = reimbursement_amount;
+	}
 
 	public boolean isPre_approval() {
 		return pre_approval;
@@ -300,7 +310,7 @@ public class Form {
 				+ event_type + ", event_name=" + event_name + ", event_description=" + event_description
 				+ ", event_date=" + event_date + ", event_time=" + event_time + ", time_missed=" + time_missed
 				+ ", event_location=" + event_location + ", event_cost=" + event_cost + ", grade_format=" + grade_format
-				+ ", current_grade=" + current_grade 
+				+ ", current_grade=" + current_grade + ", reimbursement_amount=" + reimbursement_amount
 				+ ", pre_approval=" + pre_approval + ", urgent=" + urgent + ", form_status=" + form_status
 				+ ", file_attachment=" + file_attachment + ", supervisor_approval=" + supervisor_approval
 				+ ", department_head_approval=" + department_head_approval + ", benefit_co_approval="

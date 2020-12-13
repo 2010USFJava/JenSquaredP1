@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <title>TRMS Application</title>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
 	<div id="container">
@@ -27,9 +27,7 @@
 					method="POST">
 					<!-- Employee Name -->
 					<div class="form-group">
-						<label for="empname">Enter Name:</label> <input type="text"
-							class="form-control" id="empnamename" name="empname"
-							placeholder="Enter Full Name" required="required">
+						<label for="empname">Enter Name:</label> <span id="empname"></span>
 					</div>
 					<br>
 
@@ -192,16 +190,16 @@
 
 					<!-- Time Missed -->
 					<div class="form-group">
-						<label for="timemissed">Amount of Time Missed:</label> <input
+						<label for="timemissed">Amount of Work Time Missed:</label> <input
 							type="number" name="timemissed" class="form-control"
-							id="timemissed" placeholder="HR:MM" step="0.01" required="required">
+							id="timemissed" placeholder="HR.hr" step="0.01" required="required">
 					</div>
 					<br>
 
 					<!-- Event Location -->
 					<div class="form-group">
 						<label for="eventlocation">Event Location:</label>
-						<textarea rows="5" cols="80" class="form-control"
+						<textarea rows="1" cols="80" class="form-control"
 							id="eventlocation" name="eventlocation"
 							placeholder="Enter location of event " required="required"></textarea>
 					</div>
@@ -209,10 +207,11 @@
 
 					<!-- Reimbursement Cost -->
 					<div class="form-group">
-						<label for="reimbursementcost">Amount of Event:</label> <input
+						<label for="reimbursementcost">Total Tuition Cost of Event: $</label> <input
 							type="number" class="form-control" id="reimbursementcost"
 							name="reimbursementcost" step="0.01" max="1000"
 							placeholder="Enter amount " required="required">
+							<h6>Please do not include extra fees such as parking.</h6>
 					</div>
 					<br>
 
@@ -232,8 +231,8 @@
 						<label for="passinggrade">If grade, passing grade for
 							course:</label> <input type="text" class="form-control" id="passinggrade"
 							name="passinggrade"
-							placeholder="Enter percentage of passing grade"
-							required="required">
+							placeholder="Enter passing grade"
+							required="required">%
 						<h6>Default cutoff is 80%</h6>
 					</div>
 					<br>
@@ -258,7 +257,7 @@
 
 					<!-- File Attachment -->
 					<div>
-						<label for="attachedfile">Optional Event Related Files:</label> <input
+						<label for="attachedfile">Optional Event Related File:</label> <input
 							type="file" id="attachedfile" name="attachedfile"
 							accept=".pdf, .png, .jpeg, .jpg, .txt, .doc, .msg" />
 					</div>

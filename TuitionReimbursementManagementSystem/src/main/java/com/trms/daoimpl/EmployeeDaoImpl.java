@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.trms.beans.Employee;
-import com.trms.beans.Form;
 import com.trms.dao.EmployeeDao;
 import com.trms.util.ConnFactory;
+import com.trms.util.LogThis;
 
 public class EmployeeDaoImpl implements EmployeeDao{
 	
@@ -91,32 +91,23 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		System.out.println(elist.toString());
 		return elist;
 	}
-
+	
 	@Override
-	public Employee updateReimbursement(Employee e, int eid, Boolean approved, Boolean denied) throws SQLException {
+	public Employee updateReimbursement(Employee e, Boolean approved, Boolean denied) throws SQLException {
 		Connection conn = cf.getConnection();
 		double awarded = e.getAwarded_reimbursement();
 		double available = e.getAvailable_reimbursement();
 		double pending = e.getPending_reimbursement();
-		double available1 = 1000;
-		if(approved =true) {
-			available1 = 1000 - (pending + awarded);
-			e.setAvailable_reimbursement(available1);
-		}else if (denied = true){
-			available1 = 1000 + (awarded - pending); 
-			e.setAvailable_reimbursement(available1);
-		}else {
-			
-		}String sql = "update employee set awarded_reimbursement=? and pending_reimbursement=?"
+		String sql = "update employee set awarded_reimbursement=? and pending_reimbursement=?"
 				+ "and available_reimbursement=? where eid=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setDouble(1, awarded);
 		ps.setDouble(2, pending);  //available_balance=$1000-pending_reimbursement-awarded_reimbursement
-		ps.setDouble(3, available1);
-		ps.setInt(4, eid);
+		ps.setDouble(3, available);
+		ps.setInt(4, e.getEid());
 		ps.executeUpdate();
+		LogThis.LogIt("info", e.getEid() + ",reimbursement has been updated.");
 		return e;
 	}
-
 
 }
