@@ -1,17 +1,17 @@
 http://localhost:8080/TuitionReimbursementManagementSystem/html/index.html
 
 Employee Login:
-    username: JHeermance
+    email: jheermance@revature.net
     password: Heermancer1
 
 Supervisor Login:
-    username: KittenKillzU
+    email: mknighten@revature.net
     password: GitGudScrub
 
 Department Head Login:
-    username: QCDude
+    email: jgworek@revature.net
     password: LookIntoThat
 
 Benefit Coordinator Login:
-    username: POTUS
+    email: potus@revature.net
     password: TopDawg
