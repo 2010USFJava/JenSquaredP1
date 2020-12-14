@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Approve or Deny</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+<body>
+
+	<div id="container">
+		<nav>
+			<div class="jensquared-logo"></div>
+			<ul>
+				<li><a href="/TuitionReimbursementManagementSystem/home.master">Home</a></li>
+				<li><a href="/TuitionReimbursementManagementSystem/faq.master">FAQs</a></li>
+				<li><a
+					href="/TuitionReimbursementManagementSystem/formpage.master">Application</a>
+				<li><a
+					href="/TuitionReimbursementManagementSystem/logout.master">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+
+	<div id="main">
+		<h1 class="welcome">Review Form to Approve or Deny</h1>
+		<h3>
+			Application: <span id="formnum"></span>
+		</h3>
+		<div class="wrapper">
+			<table id=formshow></table>
+		</div>
+
+		<button class="btn btn-success btn-block" id="approvebutton"
+			onclick="approved(fid)">Approve</button>
+		<button class="btn btn-success btn-block" id="denybutton"
+			onclick="denied(fid)">Deny</button>
+	</div>
+
+
+	<script type="text/javascript" src="../js/approveordeny.js"></script>
+</body>
+</html>

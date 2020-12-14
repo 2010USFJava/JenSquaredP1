@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<nav>
+			<div class="jensquared-logo"></div>
+			<ul>
+				<li><a href="/TuitionReimbursementManagementSystem/home.master">Home</a></li>
+				<li><a href="/TuitionReimbursementManagementSystem/faq.master">FAQs</a></li>
+				<li><a
+					href="/TuitionReimbursementManagementSystem/formpage.master">Application</a>
+				<li><a
+					href="/TuitionReimbursementManagementSystem/logout.master">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div id="main">
+		<h1 class="welcome">Welcome to JenSquared's Tuition Reimbursement
+			Portal</h1>
+		<h2>
+			Hello <span id="name"></span>
+		</h2>
+		<br> <br>
+		<h3>Reimbursement Amount Available:</h3>
+		<p>
+			$<span id=amtavailable></span>
+		</p>
+		<div class="wrapper"></div>
+
+		<div class="wrapper">
+			<h2 class="open">Open Applications</h2>
+			<h3 class="table">Urgent</h3>
+
+			<table id=urgentTable></table>
+			<form>
+				<label for="urgentOption">Please select which application
+					you would like to review:</label> <select name="urgentOption"
+					id="urgentOption"></select>
+				<button class="btn btn-success btn-block" id="urgentFormSelect"
+					onclick="sendOption(optionValue)">Select</button>
+			</form>
+
+			<h3 class="table1">Non-Urgent</h3>
+
+			<table id="nonurgentTable"></table>
+			<form>
+				<label for="urgentOption">Please select which application
+					you would like to review:</label> <select name="nonurgentOption"
+					id="nonurgentOption"></select>
+				<button class="btn btn-success btn-block" id="nonurgentFormSelect"
+					onclick="sendOption(optionValue)">Select</button>
+			</form>
+		</div>
+
+		<div class="wrapper">
+			<h2 class="closed">Closed Applications</h2>
+
+			<table id="closedTable"></table>
+			<form>
+				<label for="closedOption">Please select which application
+					you would like to review:</label> <select name="closedOption"
+					id="closedtOption"></select>
+				<button class="btn btn-success btn-block" id="closedFormSelect"
+					onclick="sendOption(optionValue)">Select</button>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="./js/home.js"></script>
+
+</body>
+</html>
