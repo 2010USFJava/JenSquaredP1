@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,7 @@ public class FormController {
 		if (!req.getMethod().equals("POST")) {
 			return "html/form.html";
 		}
+		Employee e = (Employee) req.getSession().getAttribute("currentuser");
 		ObjectMapper om = new ObjectMapper();
 
 		LocalDate submissionDate = LocalDate.parse(req.getParameter("todaysdate"));
@@ -81,20 +83,20 @@ public class FormController {
 			}
 			Boolean attf = Boolean.valueOf(req.getParameter("attachedfile"));
 
-			Form f = new Form(0, 0, submissionDate, eventtype, eventname, desc, eventdate, eventtime, tmissed, eloc,
+			Form f = new Form(e.getEid(), 0, submissionDate, eventtype, eventname, desc, eventdate, eventtime, tmissed, eloc,
 					rcost, gformat, pgrad, ramou, preapp, urgent, formStatus.PENDING, attf, false, false, false, null,
 					null);
 
-			fdao.newForm(f);
-			Employee e = (Employee) req.getSession().getAttribute("currentuser");
-			edao.updateReimbursement(e);
+			int fid=fdao.newForm(f);
+			
+			EmployeeController.afterSendForm(req, fid);
 
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (JsonParseException ex) {
+			ex.printStackTrace();
+		} catch (JsonMappingException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 		return HomeController.home(req);
 	}
@@ -132,94 +134,101 @@ public class FormController {
 		}
 	}
 
-	@SuppressWarnings("null")
 	public static List<Form> getUrgSup(int supid, HttpServletRequest req, HttpServletResponse res) throws SQLException {
-		List<Integer> eList = null;
+		System.out.println("in geturgsup");
+		List<Integer> eList = new ArrayList<Integer>();
 		eList = fdao.getEidFromDSup(supid);
-		List<Form> fList = null;
-		List<Form> fullList = null;
+		List<Form> fList = new ArrayList<Form>();
+		List<Form> fullList = new ArrayList<Form>();
 		if (eList != null) {
 			for (Integer e : eList) {
 				fList = fdao.getUrgentPendingForms(e);
-				fullList.add((Form) fList);
+				for(int i=0;i<fList.size();i++) {
+					fullList.add(fList.get(i));
+				}
 			}
 		}
+		System.out.println("getUrgSup: "+fullList);
 		return fullList;
 	}
 
-	@SuppressWarnings("null")
-	public static List<Form> getNonUrgSup(int supid, HttpServletRequest req, HttpServletResponse res)
-			throws SQLException {
-		List<Integer> eList = null;
+	public static List<Form> getNonUrgSup(int supid, HttpServletRequest req, HttpServletResponse res) throws SQLException {
+		System.out.println("in getnonurgsup");
+		List<Integer> eList = new ArrayList<Integer>();
 		eList = fdao.getEidFromDSup(supid);
-		List<Form> fList = null;
-		List<Form> fullList = null;
+		List<Form> fList = new ArrayList<Form>();
+		List<Form> fullList = new ArrayList<Form>();
 		if (eList != null) {
 			for (Integer e : eList) {
 				fList = fdao.getNonUrgentPendingForms(e);
-				fullList.add((Form) fList);
+				for(int i=0;i<fList.size();i++) {
+					fullList.add(fList.get(i));
+				}
 			}
 		}
 		return fullList;
 	}
 
-	@SuppressWarnings("null")
-	public static List<Form> getClosedSup(int supid, HttpServletRequest req, HttpServletResponse res)
-			throws SQLException {
-		List<Integer> eList = null;
+	public static List<Form> getClosedSup(int supid, HttpServletRequest req, HttpServletResponse res) throws SQLException {
+		System.out.println("in getclosedsup");
+		List<Integer> eList = new ArrayList<Integer>();
 		eList = fdao.getEidFromDSup(supid);
-		List<Form> fList = null;
-		List<Form> fullList = null;
+		List<Form> fList = new ArrayList<Form>();
+		List<Form> fullList = new ArrayList<Form>();
 		if (eList != null) {
 			for (Integer e : eList) {
 				fList = fdao.getNonUrgentPendingForms(e);
-				fullList.add((Form) fList);
+				for(int i=0;i<fList.size();i++) {
+					fullList.add(fList.get(i));
+				}
 			}
 		}
 		return fullList;
 	}
 
-	@SuppressWarnings("null")
 	public static List<Form> getUrgDH(int dhid, HttpServletRequest req, HttpServletResponse res) throws SQLException {
-		List<Integer> eList = null;
+		List<Integer> eList = new ArrayList<Integer>();
 		eList = fdao.getEidFromDH(dhid);
-		List<Form> fList = null;
-		List<Form> fullList = null;
+		List<Form> fList = new ArrayList<Form>();
+		List<Form> fullList = new ArrayList<Form>();
 		if (eList != null) {
 			for (Integer e : eList) {
 				fList = fdao.getNonUrgentPendingForms(e);
-				fullList.add((Form) fList);
+				for(int i=0;i<fList.size();i++) {
+					fullList.add(fList.get(i));
+				}
 			}
 		}
 		return fullList;
 	}
 
-	public static List<Form> getNonUrgDH(int dhid, HttpServletRequest req, HttpServletResponse res)
-			throws SQLException {
-		List<Integer> eList = null;
+	public static List<Form> getNonUrgDH(int dhid, HttpServletRequest req, HttpServletResponse res) throws SQLException {
+		List<Integer> eList = new ArrayList<Integer>();
 		eList = fdao.getEidFromDH(dhid);
-		List<Form> fList = null;
-		List<Form> fullList = null;
+		List<Form> fList = new ArrayList<Form>();
+		List<Form> fullList = new ArrayList<Form>();
 		if (eList != null) {
 			for (Integer e : eList) {
 				fList = fdao.getNonUrgentPendingForms(e);
-				fullList.add((Form) fList);
+				for(int i=0;i<fList.size();i++) {
+					fullList.add(fList.get(i));
+				}
 			}
 		}
 		return fullList;
 	}
 
-	@SuppressWarnings("null")
-	public static List<Form> getClosedDH(int dhid, HttpServletRequest req, HttpServletResponse res)
-			throws SQLException {
-		List<Integer> eList = null;
+	public static List<Form> getClosedDH(int dhid, HttpServletRequest req, HttpServletResponse res) throws SQLException {
+		List<Integer> eList = new ArrayList<Integer>();
 		eList = fdao.getEidFromDH(dhid);
-		List<Form> fList = null;
-		List<Form> fullList = null;
+		List<Form> fList = new ArrayList<Form>();
+		List<Form> fullList = new ArrayList<Form>();
 		if (eList != null) {
 			for (Integer e : eList) {
-				fList = fdao.getNonUrgentPendingForms(e);
-				fullList.add((Form) fList);
+				fList = fdao.getClosedForms(e);
+				for(int i=0;i<fList.size();i++) {
+					fullList.add(fList.get(i));
+				}
 			}
 		}
 		return fullList;

@@ -32,7 +32,7 @@ public class FormDaoImpl implements FormDao {
 	@Override
 	public int newForm(Form f) throws SQLException {
 		Connection conn = cf.getConnection();
-		String sql = "insert into form values(?,DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into form values(?,DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		ps.setInt(1, f.getEid());
 		ps.setDate(2, date);
@@ -46,15 +46,16 @@ public class FormDaoImpl implements FormDao {
 		ps.setDouble(10, f.getEvent_cost());
 		ps.setString(11, f.getGrade_format().toString());
 		ps.setDouble(12, f.getCurrent_grade());
-		ps.setBoolean(13, f.isPre_approval());
-		ps.setBoolean(14, f.isUrgent());
-		ps.setString(15, f.getForm_status().toString());
-		ps.setBoolean(16, f.isFile_attachment());
-		ps.setBoolean(17, f.isSupervisor_approval());
-		ps.setBoolean(18, f.isDepartment_head_approval());
-		ps.setBoolean(19, f.isBenefit_co_approval());
-		ps.setString(20, f.getApproval_response());
-		ps.setString(21, f.getDenial_response());
+		ps.setDouble(13, f.getReimbursement_amount());
+		ps.setBoolean(14, f.isPre_approval());
+		ps.setBoolean(15, f.isUrgent());
+		ps.setString(16, f.getForm_status().toString());
+		ps.setBoolean(17, f.isFile_attachment());
+		ps.setBoolean(18, f.isSupervisor_approval());
+		ps.setBoolean(19, f.isDepartment_head_approval());
+		ps.setBoolean(20, f.isBenefit_co_approval());
+		ps.setString(21, f.getApproval_response());
+		ps.setString(22, f.getDenial_response());
 		int event_id = 0;
 		int affectedrows = ps.executeUpdate();
 		if (affectedrows > 0) {
@@ -63,7 +64,7 @@ public class FormDaoImpl implements FormDao {
 				event_id = rs.getInt(2);
 			}
 		}
-		LogThis.LogIt("info", event_id + ",has been submitted");
+		LogThis.LogIt("info", "Form "+event_id + "has been submitted");
 		return event_id;
 	}
 
@@ -104,6 +105,34 @@ public class FormDaoImpl implements FormDao {
 		ps.setInt(8, event_id);
 		ps.executeUpdate();
 		LogThis.LogIt("info", "Form "+f.getEvent_id()+" has been updated.");
+	}
+	
+	@Override
+	public void updateFormStatus(Form f, int event_id) throws SQLException {
+		Connection conn = cf.getConnection();
+		boolean sup = f.isSupervisor_approval();
+		boolean dept = f.isDepartment_head_approval();
+		boolean benco = f.isBenefit_co_approval();	
+		if ((sup = true) && (dept = true) || (benco = true)) {
+			formStatus fstat = formStatus.APPROVED;
+			}else if ((sup = true) && (dept = true) || (benco = false))  {
+				formStatus fstat = formStatus.DENIED;
+			}else if ((sup = false) && (dept = false) || (benco = true))  {
+				formStatus fstat = formStatus.APPROVED;
+			}else if ((sup = true) && (dept = false) || (benco = true))  {
+				formStatus fstat = formStatus.APPROVED;
+			}else if ((sup = false) && (dept = true) || (benco = true))  {
+				formStatus fstat = formStatus.APPROVED;
+			}else if ((sup = false) && (dept = false) || (benco = false))  {
+				formStatus fstat = formStatus.DENIED;
+			}else {
+				System.out.println("Form status has been updated");
+			}
+		String sql = "update form status where event_id=? ";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, f.getEvent_id());
+		ps.executeUpdate();
+		LogThis.LogIt("info", "Form id: " + f.getEvent_id() + " status has been updated.");
 	}
 
 	@Override

@@ -28,6 +28,14 @@ public class EmployeeController {
 		res.getWriter().write(new ObjectMapper().writeValueAsString(e));
 	}
 	
+	public static void afterSendForm(HttpServletRequest req, int fid) throws SQLException{
+		System.out.println("In Employee Controller");
+		Employee e = (Employee) req.getSession().getAttribute("currentuser");
+		Form f = fdao.getFormByEventid(fid);
+		e.setAvailable_reimbursement(e.getAvailable_reimbursement()-f.getReimbursement_amount());
+		edao.updateReimbursement(e);
+	}
+	
 	public static void updateReimbursement(HttpServletRequest req,boolean approved, int fid) throws SQLException {
 		System.out.println("In Employee Controller");
 		Employee e = (Employee) req.getSession().getAttribute("currentuser");

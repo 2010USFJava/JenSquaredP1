@@ -16,19 +16,18 @@ public class TRMSService {
 		List<Employee> eList = null;
 		try {
 			eList = edao.getAllEmployees();
+			System.out.println(eList);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 		boolean verify = false;
-		System.out.println("right before enhanced for loop");
+		System.out.println("right before for loop");
 		for(int i=0;i<eList.size();i++) {
 			Employee e=eList.get(i);
 			if(e.getEmail().equals(email)&&e.getPassword().equals(password)) {
 				verify = true;
 				System.out.println(verify);
 				return verify;
-			}else {
-				i++;
 			}
 		}
 		System.out.println("login verify failed");

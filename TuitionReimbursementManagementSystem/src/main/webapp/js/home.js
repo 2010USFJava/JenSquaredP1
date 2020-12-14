@@ -142,12 +142,13 @@ function displayOptions(reqList, eleid) {  //pass in already parsed json
 	console.log(obj); //print to  check!
 	$.each(obj, function(key, value) { //for each object in reqList:(index, json )
 		console.log(key);
-		console.log(value.requestId); //json.parameter, will pass in the value associated with the parameter
-		optionText = value.requestId; //stores the seen text in option
-		optionValue = value.requestId; //stores a value that is passed in when this option is chosen
+		console.log(value.event_id); //json.parameter, will pass in the value associated with the parameter
+		optionText = value.event_id; //stores the seen text in option
+		optionValue = value.event_id; //stores a value that is passed in when this option is chosen
 		$(`${eleid}`).append(`<option value="${optionValue}">${optionText}</option>`);
 		//^^^
 	});
+	return optionValue;
 }
 
 function sendOption(optionValue) {
@@ -166,7 +167,7 @@ function sendOption(optionValue) {
 		}
 	}
 
-	xhropt.open("GET", "http://localhost:8080/TuitionReimbursementManagementSystem/finalsubmit.master", true);
+	xhropt.open("POST", "http://localhost:8080/TuitionReimbursementManagementSystem/finalsubmit.master", true);
 	xhropt.send();
 	
 }

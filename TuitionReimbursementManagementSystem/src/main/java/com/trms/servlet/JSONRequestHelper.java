@@ -60,10 +60,10 @@ public class JSONRequestHelper {
 				FormController.getClosed(e.getEid(),req, res);
 			}
 			break;
-		case "/TuitionReimbursementManagementSystem/getform.json"+req.getParameter(fid):
-			int eventid = req.getParameter(fid);
-			FormController.getFormByEId(eventid, req, res)
-			break;
+//		case "/TuitionReimbursementManagementSystem/getform.json"+req.getParameter(fid):
+//			int eventid = req.getParameter(fid);
+//			FormController.getFormByEId(eventid, req, res)
+//			break;
 //		case "/TuitionReimbursementManagementSystem/approved.json":
 //			EmployeeController.updateReimbursement(req, true);
 //			FormController.updateForm(req,res,fid);
