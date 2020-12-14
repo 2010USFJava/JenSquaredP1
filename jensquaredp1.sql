@@ -32,8 +32,8 @@ event_type varchar not null,
 event_name varchar not null,
 event_description varchar not null,
 event_date date not null,
-event_time time not null,
-time_missed time not null,
+event_time varchar not null,
+time_missed numeric not null,
 event_location varchar not null,
 event_cost varchar not null,
 grade_format varchar not null,
@@ -46,8 +46,8 @@ file_attachment boolean,
 supervisor_approval boolean not null,
 department_head_approval boolean not null,
 benefit_co_approval boolean not null,
-approval_reponse varchar not null,
-denial_response varchar not null,
+approval_reponse varchar,
+denial_response varchar,
 foreign key (eid) references employee(eid) on delete cascade
 );
 
@@ -62,5 +62,10 @@ select * from employee;
 select * from form;
 
 drop table attachments;
+drop table form;
 
 insert into employee values (0,'jennifer hunter', '384 west st', '273-384-9302', 'jhunter@revature.net', 'jenny', 'fromtheblock', 1000, 500, 0, 39, 30, 50, false, false, false);
+insert into employee values (default,'Jennifer Heermance', '17 Cherry Tree Lane', '309-867-5309', 'jheermance@revature.net', 'JHeermance', 'Heermancer1', 1000, 0, 0, 39, 30, 50, false, false, false);
+insert into employee values (39,'Matt Knighten', '4202 E Fowler Ave', '813-266-2437', 'mknighten@revature.net', 'KittenKillzU', 'GitGudScrub', 1000, 0, 0, 30, 30, 50, true, false, false);
+insert into employee values (30,'Jonathan Gworek', '11730 Plaza America Dr.', '703-570-8181', 'jgworek@revature.net', 'QCDude', 'LookIntoThat', 1000, 0, 0, 50, 30, 50, true, true, false);
+insert into employee values (50,'POTUS', '1600 Pennsylvania Avenue NW', '202-456-1111', 'potus@revature.net', 'POTUS', 'TopDawg', 1000, 0, 0, 50, 50, 50, false, false, true);
