@@ -3,25 +3,29 @@ package com.trms.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Period;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trms.beans.Employee;
 import com.trms.beans.Form;
 import com.trms.beans.Form.eventType;
 import com.trms.beans.Form.formStatus;
 import com.trms.beans.Form.gradeFormat;
+import com.trms.dao.EmployeeDao;
 import com.trms.dao.FormDao;
+import com.trms.daoimpl.EmployeeDaoImpl;
 import com.trms.daoimpl.FormDaoImpl;
 
 public class FormController {
 	static FormDao fdao = new FormDaoImpl();
+	static EmployeeDao edao = new EmployeeDaoImpl();
 
 	public static String newForm(HttpServletRequest req) throws SQLException, JsonProcessingException {
 		if (!req.getMethod().equals("POST")) {
@@ -82,49 +86,54 @@ public class FormController {
 					null);
 
 			fdao.newForm(f);
+			Employee e = (Employee) req.getSession().getAttribute("currentuser");
+			edao.updateReimbursement(e);
 
 		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return HomeController.home(req);
 	}
 
-	public static void getUrgentPending(int eid) {
+	public static void getUrgentPending(int eid, HttpServletRequest req, HttpServletResponse res)
+			throws JsonProcessingException, IOException {
 		System.out.println("In getUrgentPending");
 		try {
-			fdao.getUrgentPendingForms(eid);
+			List<Form> fList = fdao.getUrgentPendingForms(eid);
+			res.getWriter().write(new ObjectMapper().writeValueAsString(fList));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void getNonUrgentPending(int eid) {
+	public static void getNonUrgentPending(int eid, HttpServletRequest req, HttpServletResponse res)
+			throws JsonProcessingException, IOException {
 		System.out.println("In getNonUrgentPending");
 		try {
-			fdao.getNonUrgentPendingForms(eid);
+			List<Form> fList = fdao.getNonUrgentPendingForms(eid);
+			res.getWriter().write(new ObjectMapper().writeValueAsString(fList));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void getClosed(int eid) {
+	public static void getClosed(int eid, HttpServletRequest req, HttpServletResponse res)
+			throws JsonProcessingException, IOException {
 		System.out.println("In getClosed");
 		try {
-			fdao.getClosedForms(eid);
+			List<Form> fList = fdao.getClosedForms(eid);
+			res.getWriter().write(new ObjectMapper().writeValueAsString(fList));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@SuppressWarnings("null")
-	public static List<Form> getUrgSup(int supid) throws SQLException {
+	public static List<Form> getUrgSup(int supid, HttpServletRequest req, HttpServletResponse res) throws SQLException {
 		List<Integer> eList = null;
 		eList = fdao.getEidFromDSup(supid);
 		List<Form> fList = null;
@@ -139,7 +148,8 @@ public class FormController {
 	}
 
 	@SuppressWarnings("null")
-	public static List<Form> getNonUrgSup(int supid) throws SQLException {
+	public static List<Form> getNonUrgSup(int supid, HttpServletRequest req, HttpServletResponse res)
+			throws SQLException {
 		List<Integer> eList = null;
 		eList = fdao.getEidFromDSup(supid);
 		List<Form> fList = null;
@@ -154,7 +164,8 @@ public class FormController {
 	}
 
 	@SuppressWarnings("null")
-	public static List<Form> getClosedSup(int supid) throws SQLException {
+	public static List<Form> getClosedSup(int supid, HttpServletRequest req, HttpServletResponse res)
+			throws SQLException {
 		List<Integer> eList = null;
 		eList = fdao.getEidFromDSup(supid);
 		List<Form> fList = null;
@@ -169,7 +180,7 @@ public class FormController {
 	}
 
 	@SuppressWarnings("null")
-	public static List<Form> getUrgDH(int dhid) throws SQLException {
+	public static List<Form> getUrgDH(int dhid, HttpServletRequest req, HttpServletResponse res) throws SQLException {
 		List<Integer> eList = null;
 		eList = fdao.getEidFromDH(dhid);
 		List<Form> fList = null;
@@ -183,7 +194,8 @@ public class FormController {
 		return fullList;
 	}
 
-	public static List<Form> getNonUrgDH(int dhid) throws SQLException {
+	public static List<Form> getNonUrgDH(int dhid, HttpServletRequest req, HttpServletResponse res)
+			throws SQLException {
 		List<Integer> eList = null;
 		eList = fdao.getEidFromDH(dhid);
 		List<Form> fList = null;
@@ -198,7 +210,8 @@ public class FormController {
 	}
 
 	@SuppressWarnings("null")
-	public static List<Form> getClosedDH(int dhid) throws SQLException {
+	public static List<Form> getClosedDH(int dhid, HttpServletRequest req, HttpServletResponse res)
+			throws SQLException {
 		List<Integer> eList = null;
 		eList = fdao.getEidFromDH(dhid);
 		List<Form> fList = null;
@@ -212,30 +225,33 @@ public class FormController {
 		return fullList;
 	}
 
-	public static List<Form> getAllUrg() throws SQLException {
+	public static void getAllUrg(HttpServletRequest req, HttpServletResponse res)
+			throws SQLException, JsonProcessingException, IOException {
 		System.out.println("In getAllUrg");
-		List<Form> fList = null;
-		fList = fdao.getAllUrgentPendingForms();
-		return fList;
+		List<Form> fList = fdao.getAllUrgentPendingForms();
+		res.getWriter().write(new ObjectMapper().writeValueAsString(fList));
 	}
 
-	public static List<Form> getAllNonUrg() throws SQLException {
+	public static void getAllNonUrg(HttpServletRequest req, HttpServletResponse res) throws SQLException, JsonProcessingException, IOException {
 		System.out.println("In getAllNonUrg");
-		List<Form> fList = null;
-		fList = fdao.getAllNonUrgentPendingForms();
-		return fList;
+		List<Form> fList =  fdao.getAllNonUrgentPendingForms();
+		res.getWriter().write(new ObjectMapper().writeValueAsString(fList));
 	}
 
-	public static List<Form> getAllClosed() throws SQLException {
+	public static void getAllClosed(HttpServletRequest req, HttpServletResponse res) throws SQLException, JsonProcessingException, IOException {
 		System.out.println("In getAllClosed");
-		List<Form> fList = null;
-		fList = fdao.getAllClosedForms();
-		return fList;
+		List<Form> fList = fdao.getAllClosedForms();
+		res.getWriter().write(new ObjectMapper().writeValueAsString(fList));
 	}
 
-	public static Form getFormById(int eventid) throws SQLException {
-		Form f = fdao.getFormByEventId(eventid);
+	public static Form getFormByEId(int eventid, HttpServletRequest req, HttpServletResponse res) throws SQLException, JsonProcessingException, IOException {
+		Form f = fdao.getFormByEventid(eventid);
+		res.getWriter().write(new ObjectMapper().writeValueAsString(f));
 		return f;
+	}
+	
+	public static void updateFormStatus(HttpServletRequest req, HttpServletResponse res, int fid) {
+		
 	}
 
 }

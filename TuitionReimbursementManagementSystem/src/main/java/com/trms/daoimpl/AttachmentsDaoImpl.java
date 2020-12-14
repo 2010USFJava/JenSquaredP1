@@ -1,6 +1,5 @@
 package com.trms.daoimpl;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,5 +40,6 @@ public class AttachmentsDaoImpl implements AttachmentsDao{
 		}
 		return a;
 	}
+
 
 }

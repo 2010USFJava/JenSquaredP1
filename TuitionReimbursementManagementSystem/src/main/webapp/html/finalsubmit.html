@@ -11,34 +11,48 @@
 			<ul>
 				<li><a href="/TuitionReimbursementManagementSystem/home.master">Home</a></li>
 				<li><a href="/TuitionReimbursementManagementSystem/faq.master">FAQs</a></li>
-				<li><a href="/TuitionReimbursementManagementSystem/formpage.master">Application</a>
-				<li><a href="/TuitionReimbursementManagementSystem/logout.master">Logout</a></li>
+				<li><a
+					href="/TuitionReimbursementManagementSystem/formpage.master">Application</a>
+				<li><a
+					href="/TuitionReimbursementManagementSystem/logout.master">Logout</a></li>
 			</ul>
 		</nav>
 	</div>
 
 	<div id="main">
 		<h2 class="grade">Please submit your paperwork for final grade:</h2>
-              <br>
+		<br>
 
-              <div class="file-upload inline-block">
-                <label for="upload1" class="file-upload__label btn btn--subtle">
-                  <span class="file-upload__text file-upload__text--has-max-width">Upload:</span>
-                </label>
-                
-                <input type="file" class="file-upload__input" name="upload1" id="upload1">
-              </div>
+		<div class="file-upload inline-block">
+			<label for="upload1" class="file-upload__label btn btn--subtle">
+				<span class="file-upload__text file-upload__text--has-max-width">Upload:</span>
+			</label> <input type="file" class="file-upload__input" name="upload1"
+				id="upload1">
+		</div>
+		<div>
+			<button class="btn btn-success btn-block" id="gradesubmit"
+				onclick="sendgrade()">Submit</button>
+		</div>
 
 
-              <h2 class="open1">Please submit your presentation, along with names of those who attended:</h2>
-              <br>
+		<h2 class="open1">Please submit your presentation, along with
+			names of those who attended:</h2>
+		<br>
 
-              <div class="file-upload inline-block">
-                <label for="upload1" class="file-upload__label btn btn--subtle">
-                  <span class="file-upload__text file-upload__text--has-max-width">Upload:</span>
-                </label>
-                
-                <input type="file" class="file-upload__input" name="upload1" id="upload1">
+		<div class="file-upload inline-block">
+			<label for="upload1" class="file-upload__label btn btn--subtle">
+				<span class="file-upload__text file-upload__text--has-max-width">Upload:</span>
+			</label> <input type="file" class="file-upload__input" name="upload1"
+				id="upload1">
+				<br>
+			<textarea rows="1" cols="80" class="form-control" id="eventlocation"
+				name="eventlocation" placeholder="Enter names of attendees "
+				required="required"></textarea>
+		</div>
+		<br>
+		<div>
+			<button class="btn btn-success btn-block" id="presentationsubmit"
+				onclick="sendpresentation()">Submit</button>
 		</div>
 	</div>
 

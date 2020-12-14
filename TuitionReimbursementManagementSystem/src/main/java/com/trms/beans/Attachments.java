@@ -48,7 +48,8 @@ public class Attachments {
 		return "Attachments [event_id=" + event_id + ", file_name=" + file_name + ", file_attachment=" + file_attachment
 				+ "]";
 	}
+	
+	
+	
 
-	
-	
 }

@@ -21,51 +21,57 @@ public class JSONRequestHelper {
 		case "/TuitionReimbursementManagementSystem/getsession.json":
 			EmployeeController.getSessionUser(req, res);
 			break;
-		case "/TuitionReimbursementManagementSystem/form.json":
-			FormController.newForm(req);
-			break;
-		case "/TuitionReimbursementManagementSystem/attachments.json":
-			AttachmentsController.newAttachment(req);
-			break;
+//		case "/TuitionReimbursementManagementSystem/form.json":
+//			FormController.newForm(req);
+//			break;
+//		case "/TuitionReimbursementManagementSystem/attachments.json":
+//			AttachmentsController.newAttachment(req);
+//			break;
 		case "/TuitionReimbursementManagementSystem/geturglist.json":
 			if(e.isIs_benefit_co()) {
-				FormController.getAllUrg();
+				FormController.getAllUrg(req, res);
 			}else if(e.isIs_department_head()) {
-				FormController.getUrgDH(e.getEid());
+				FormController.getUrgDH(e.getEid(),req, res);
 			}else if(e.isIs_supervisor()) {
-				FormController.getUrgSup(e.getEid());
+				FormController.getUrgSup(e.getEid(),req, res);
 			}else {
-				FormController.getUrgentPending(e.getEid());
+				FormController.getUrgentPending(e.getEid(),req, res);
 			}
 			break;
 		case "/TuitionReimbursementManagementSystem/getnonurglist.json":
 			if(e.isIs_benefit_co()) {
-				FormController.getAllNonUrg();
+				FormController.getAllNonUrg(req, res);
 			}else if(e.isIs_department_head()) {
-				FormController.getNonUrgDH(e.getEid());
+				FormController.getNonUrgDH(e.getEid(),req, res);
 			}else if(e.isIs_supervisor()) {
-				FormController.getNonUrgSup(e.getEid());
+				FormController.getNonUrgSup(e.getEid(),req, res);
 			}else {
-				FormController.getNonUrgentPending(e.getEid());
+				FormController.getNonUrgentPending(e.getEid(),req, res);
 			}
 			break;
 		case "/TuitionReimbursementManagementSystem/getclosedlist.json":
 			if(e.isIs_benefit_co()) {
-				FormController.getAllClosed();
+				FormController.getAllClosed(req, res);
 			}else if(e.isIs_department_head()) {
-				FormController.getClosedDH(e.getEid());
+				FormController.getClosedDH(e.getEid(),req, res);
 			}else if(e.isIs_supervisor()) {
-				FormController.getClosedSup(e.getEid());
+				FormController.getClosedSup(e.getEid(),req, res);
 			}else {
-				FormController.getClosed(e.getEid());
+				FormController.getClosed(e.getEid(),req, res);
 			}
 			break;
-		case "/TuitionReimbursementManagementSystem/approved.json":
-			EmployeeController.updateReimbursement(req, true);
+		case "/TuitionReimbursementManagementSystem/getform.json"+req.getParameter(fid):
+			int eventid = req.getParameter(fid);
+			FormController.getFormByEId(eventid, req, res)
 			break;
-		case "/TuitionReimbursementManagementSystem/denied.json":
-			EmployeeController.updateReimbursement(req, false);
-			break;
+//		case "/TuitionReimbursementManagementSystem/approved.json":
+//			EmployeeController.updateReimbursement(req, true);
+//			FormController.updateForm(req,res,fid);
+//			break;
+//		case "/TuitionReimbursementManagementSystem/denied.json":
+//			EmployeeController.updateReimbursement(req, false);
+//			FormController.updateForm(req,res,fid);
+//			break;
 		default:
 			System.out.println("Everything went wrong JSON.");
 		}

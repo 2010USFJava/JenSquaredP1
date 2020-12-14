@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.trms.beans.Employee;
-import com.trms.util.LogThis;
 import com.trms.util.TRMSService;
 
 public class LoginController {
@@ -46,7 +45,6 @@ static TRMSService serv = new TRMSService();
 //			ckIsDS.setMaxAge(3600);
 //			res.addCookie(ckIsBenCo);
 //			
-			LogThis.LogIt("info", e + ",is logged in.");
 			return "home.master";
 		}
 	}
