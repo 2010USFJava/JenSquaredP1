@@ -12,6 +12,9 @@
   <li>CSS</li>
   <li>JavaScript</li>
   <li>AJAX</li>
+  <li>Tomcat</li>
+  <li>Spring Tools Suite</li>
+  <li>DBeaver</li>
 </ul>
 
 <h2>Features</h2>
